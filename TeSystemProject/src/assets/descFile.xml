@@ -1,0 +1,1642 @@
+{
+	"taskId": 1,
+	"name": "aaa",
+	"module": [{
+		"id": 1,
+		"name": "服务命名符合性验证",
+		"charName": "naming",
+		"categoryList": [{
+			"id": 1,
+			"name": "接口契约",
+			"charName": "interface contract",
+			"indicatorList": [{
+				"id": 1,
+				"name": "接口契约命名规范指标",
+				"charName": "interface contract naming specification",
+				"characteristicsList": [{
+					"id": 1,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "接口契约采用四层结构由\".\"分割",
+					"rule": {
+						"id": 1,
+						"name": "区段分段",
+						"charName": "secSeg"
+					},
+					"ruleSection": {
+						"id": 4,
+						"min": 4,
+						"max": 4,
+						"separator": "."
+					},
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 2,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第一段定义了服务的所属机构、应用领域等信息，不同信息间可由中划线分割",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 1,
+						"section": 1,
+						"code": "org-area",
+						"separator": "-",
+						"rule": {
+							"id": 3,
+							"name": "枚举范围",
+							"charName": "enumScp"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 3,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第二段定义了具体的功能名称",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 2,
+						"section": 2,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 4,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第三段定义了类型、服务、数据单元、应用、库、消息队列和进程间通讯等类型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 3,
+						"section": 3,
+						"code": "type",
+						"separator": null,
+						"rule": {
+							"id": 3,
+							"name": "枚举范围",
+							"charName": "enumScp"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 5,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第四段定义了接口契约版本，版本标识方式为V[整数]，数量从1开始递增",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 4,
+						"section": 4,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}, {
+				"id": 2,
+				"name": "接口契约命名使用约束指标",
+				"charName": "interface contract naming usage constraint",
+				"characteristicsList": [{
+					"id": 6,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第一区段字符中仅允许[A-Z]、[a-z]、[0-9]和-",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 5,
+						"section": 1,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 7,
+					"checkPoint": "interfaceContractName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第二区段字符中仅允许[A-Z]、[a-z]、[0-9]和-，采用驼峰命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 6,
+						"section": 2,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}, {
+				"id": 7,
+				"name": "接口契约元数据规范指标",
+				"charName": "interface contract metadata specification",
+				"characteristicsList": [{
+					"id": 22,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractName",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约名称信息长度不超过200个字符",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 23,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractChineseName",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约中文别名信息为长度不超过200个字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 24,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.ServiceRequires",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约服务依赖信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 25,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractDescript",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约描述信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 26,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.ServiceType",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约服务类型信息为枚举型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 3,
+						"code": "type"
+					}
+				}, {
+					"id": 27,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractVersion",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约版本信息为长度不超过6字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 1,
+						"minLength": 0,
+						"maxLength": 6,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 28,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractOrganization",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约所属机构信息为枚举类型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 1,
+						"code": "org"
+					}
+				}, {
+					"id": 29,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractField",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约应用领域信息为枚举类型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 2,
+						"code": "area"
+					}
+				}, {
+					"id": 30,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractCreator",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约创建者信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 31,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractCreatDate",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约创建时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 32,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractAlterDate",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约更新时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 33,
+					"checkPoint": "interfaceContractMetadata",
+					"checkProperty": "InterfaceContractInfo.InterfaceContractKeywords",
+					"checkFile": "interfaceContractDescFile",
+					"desc": "接口契约关键词信息为长度不超过100字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 7,
+						"minLength": 0,
+						"maxLength": 100,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}]
+		}, {
+			"id": 2,
+			"name": "段文件",
+			"charName": "segment file",
+			"indicatorList": [{
+				"id": 3,
+				"name": "段文件命名规范指标",
+				"charName": "segment file naming specification",
+				"characteristicsList": [{
+					"id": 8,
+					"checkPoint": "segmentFileName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "段文件名采用“段文件服务名”+“段文件版本号”二段结构，由下划线分割",
+					"rule": {
+						"id": 1,
+						"name": "区段分段",
+						"charName": "secSeg"
+					},
+					"ruleSection": {
+						"id": 6,
+						"min": 2,
+						"max": 2,
+						"separator": "_"
+					},
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}, {
+				"id": 4,
+				"name": "段文件命名使用约束指标",
+				"charName": "segment file naming usage constraint",
+				"characteristicsList": [{
+					"id": 9,
+					"checkPoint": "segmentFileName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第一段为服务名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 5,
+						"section": 1,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 10,
+					"checkPoint": "segmentFileName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "段文件版本应使用格式“Va.b.c.d”，其中a、b、c、d为0-255的整数",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 6,
+						"section": 2,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}, {
+				"id": 8,
+				"name": "段文件元数据规范指标",
+				"charName": "segment file metadata specification",
+				"characteristicsList": [{
+					"id": 34,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegName",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件名称信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 35,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.InterfaceContract",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件接口契约信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 36,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegChineseName",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件中文别名信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 37,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.ServiceRequires",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件服务依赖信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 38,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegLibraryRequires",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件本地段依赖信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 39,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegDescript",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件描述信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 40,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegClass",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件类型信息为枚举型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 4,
+						"code": "sectionType"
+					}
+				}, {
+					"id": 41,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegVersion",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件版本信息为长度不超过16字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 2,
+						"minLength": 0,
+						"maxLength": 16,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 42,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegOrganization",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件所属机构信息为枚举型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 1,
+						"code": "org"
+					}
+				}, {
+					"id": 43,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegField",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件应用领域信息为枚举型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 2,
+						"code": "area"
+					}
+				}, {
+					"id": 44,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegCreator",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件创建者信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 45,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegCreatDate",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件创建时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 46,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegAlterDate",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件更新时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 47,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegAlterExplanation",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件版本说明信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 48,
+					"checkPoint": "segmentFileMetadata",
+					"checkProperty": "SegmentInfo.SegKeywords",
+					"checkFile": "segmentFileDescFile",
+					"desc": "段文件关键词信息为长度不超过100字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 7,
+						"minLength": 0,
+						"maxLength": 100,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}]
+		}, {
+			"id": 3,
+			"name": "运行态服务",
+			"charName": "running service",
+			"indicatorList": [{
+				"id": 5,
+				"name": "运行态服务命名规范指标",
+				"charName": "running service naming specification",
+				"characteristicsList": [{
+					"id": 11,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "运行态服务命名采用五层结构由“.”分割",
+					"rule": {
+						"id": 1,
+						"name": "区段分段",
+						"charName": "secSeg"
+					},
+					"ruleSection": {
+						"id": 5,
+						"min": 2,
+						"max": 5,
+						"separator": "."
+					},
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 12,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第一区段表示服务的部署代号，由运行态服务的部署单位填写",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 7,
+						"section": 1,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 13,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第二区段对应接口契约第一区段命名",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 1,
+						"section": 1,
+						"code": "org-area",
+						"separator": "-",
+						"rule": {
+							"id": 3,
+							"name": "枚举范围",
+							"charName": "enumScp"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 14,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第三区段对应接口契约第二区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 2,
+						"section": 2,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 15,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第四区段对应接口契约第四区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 4,
+						"section": 4,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 16,
+					"checkPoint": "runningServiceName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第五区段定义了服务部署的服务器域",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 10,
+						"section": 5,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}, {
+				"id": 9,
+				"name": "服务注册元数据规范指标",
+				"charName": "service registration metadata specification",
+				"characteristicsList": [{
+					"id": 49,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceName",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务联邦名称信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 50,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.InterfaceContract",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册接口契约信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 51,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceChineseName",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册中文别名信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 52,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceRequires",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册依赖信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 53,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceDescript",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册描述信息为长度不超过2000字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 9,
+						"minLength": 0,
+						"maxLength": 2000,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 54,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceOrganization",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册所属机构信息为枚举类型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 1,
+						"code": "org"
+					}
+				}, {
+					"id": 55,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceField",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册应用领域信息为枚举类型",
+					"rule": {
+						"id": 3,
+						"name": "枚举范围",
+						"charName": "enumScp"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": {
+						"id": 2,
+						"code": "area"
+					}
+				}, {
+					"id": 56,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceCreator",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册创建者信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 57,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceCreatDate",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册创建时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 58,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceAlter",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册更新者信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 59,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceAlterDate",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册更新时间信息为长度不超过20字符的字符串，格式为：年月日/时分秒",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 4,
+						"minLength": 0,
+						"maxLength": 20,
+						"pattern": "YYYY/MM/dd HH:mm:ss",
+						"type": "DateTime",
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 60,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceAddress",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册地址信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 61,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceAddressName",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务访问名称信息为长度不超过200字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 8,
+						"minLength": 0,
+						"maxLength": 200,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 62,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServicePort",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册多端口信息为字符串，长度待定",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 19,
+						"minLength": 0,
+						"maxLength": 2147483647,
+						"pattern": null,
+						"type": null,
+						"desc": "长度、格式待定"
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 63,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceInstance",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册多实例信息为字符串，长度待定",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 19,
+						"minLength": 0,
+						"maxLength": 2147483647,
+						"pattern": null,
+						"type": null,
+						"desc": "长度、格式待定"
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 64,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": "ServiceRegisterInfo.ServiceKeywords",
+					"checkFile": "serviceRegDescFile",
+					"desc": "服务注册关键词信息为长度不超过100字符的字符串",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": {
+						"id": 7,
+						"minLength": 0,
+						"maxLength": 100,
+						"pattern": null,
+						"type": null,
+						"desc": null
+					},
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 65,
+					"checkPoint": "serviceRegisterMetadata",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "服务注册缩略图信息为大小不超过1MB的二进制文件",
+					"rule": {
+						"id": 5,
+						"name": "操作返回值",
+						"charName": "oprRet"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}]
+		}, {
+			"id": 4,
+			"name": "运行态服务访问",
+			"charName": "running service access",
+			"indicatorList": [{
+				"id": 6,
+				"name": "运行态服务访问命名规范指标",
+				"charName": "running service access naming specification",
+				"characteristicsList": [{
+					"id": 17,
+					"checkPoint": "runningServiceAccessName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "运行态服务访问命名采用四层结构由“.”分割",
+					"rule": {
+						"id": 1,
+						"name": "区段分段",
+						"charName": "secSeg"
+					},
+					"ruleSection": {
+						"id": 4,
+						"min": 4,
+						"max": 4,
+						"separator": "."
+					},
+					"ruleSectionContent": null,
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 18,
+					"checkPoint": "runningServiceAccessName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第一区段表示服务的部署代号，对应服务名称第一区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 7,
+						"section": 1,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 19,
+					"checkPoint": "runningServiceAccessName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第二区段表示服务机构、领域，对应服务名称第二区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 8,
+						"section": 2,
+						"code": "org-area",
+						"separator": "-",
+						"rule": {
+							"id": 3,
+							"name": "枚举范围",
+							"charName": "enumScp"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 20,
+					"checkPoint": "runningServiceAccessName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第三区段表示软件名称、对应服务名称第三、四区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 11,
+						"section": 3,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}, {
+					"id": 21,
+					"checkPoint": "runningServiceAccessName",
+					"checkProperty": null,
+					"checkFile": null,
+					"desc": "第四区段表示服务器域，对应服务名称第五区段命名",
+					"rule": {
+						"id": 2,
+						"name": "字符串约束",
+						"charName": "strConstr"
+					},
+					"ruleSection": null,
+					"ruleSectionContent": {
+						"id": 12,
+						"section": 4,
+						"code": null,
+						"separator": null,
+						"rule": {
+							"id": 2,
+							"name": "字符串约束",
+							"charName": "strConstr"
+						},
+						"ruleSectionContent": null,
+						"ruleString": null,
+						"ruleFile": null,
+						"ruleCode": null
+					},
+					"ruleString": null,
+					"ruleFile": null,
+					"ruleCode": null
+				}]
+			}]
+		}]
+	}]
+}
