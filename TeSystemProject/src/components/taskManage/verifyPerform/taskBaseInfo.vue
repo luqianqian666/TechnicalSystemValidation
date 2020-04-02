@@ -56,12 +56,13 @@
                         <div style="margin-bottom: 30px; ">
                          <div label="特征项选择" name="first">
                            <br>
-
-                          <el-row type="flex" :gutter="50" >
-                            <el-col >
-                           <div class="panel panel-danger" style="background-color: rgb(240,222,237); ">
-                            <div class="panel-heading" style="text-align: center">服务命名特征选择</div>
-                            <div class="panel-body">
+                           <el-collapse   v-model="activeNames" @change="handleChange">
+                            <el-collapse-item title="服务命名特征 " name="1"  >
+                            <el-row type="flex" :gutter="50" >
+                              <el-col >
+                              <div class="panel panel-danger" style="background-color: rgb(240,222,237); ">
+                              <div class="panel-heading" style="text-align: center">服务命名特征选择</div>
+                              <div class="panel-body">
                                <el-table max-height="300"   :data="servicesInfos"   @selection-change="handleSelectionChange"  ref="multipleTable" >
                                   
                                <el-table-column label="操作" min-width="100" align="center"   type="selection"  :reserver-selection="true"> </el-table-column>
@@ -105,14 +106,16 @@
                             </div>
                             </el-col>
                             
-                        </el-row>
-                          <br>
-                         <el-row type="flex" :gutter="50" >
+                            </el-row>
+                           </el-collapse-item >
+                           <br>
+                           <el-collapse-item title="服务元数据特征 " name="2">
+                            <el-row type="flex" :gutter="50" >
                             
-                            <el-col>   
+                              <el-col>   
                               <div class="panel panel-danger" style="background-color: rgb(240,222,237);">
-                            <div class="panel-heading" style="text-align: center">元数据特征选择</div>
-                            <div class="panel-body">
+                              <div class="panel-heading" style="text-align: center">元数据特征选择</div>
+                              <div class="panel-body">
                               <el-table max-height="300"   :data="datasInfos"   @selection-change="handleSelectionChange1"   >
                                   
                                <el-table-column label="操作" min-width="100" align="center"   type="selection"  :reserver-selection="true"> </el-table-column>
@@ -154,8 +157,11 @@
                               </div>
                             </div>
                             </el-col>
-                        </el-row> <br>
-
+                        </el-row> 
+                        </el-collapse-item >
+                          <br>
+                     </el-collapse>
+  
                             <span style="float: right">
                              <el-button @click="nextClick">
                               <i class="el-icon-edit"></i>下一步
@@ -414,7 +420,7 @@ export default
      name: "ProjectList",
      data: function () {
       return {
-        uploadpath:'http://localhost:8081/xmlImport/importFileInfo',
+         uploadpath:'http://localhost:8081/xmlImport/importFileInfo',
          taskInfo: 
             {
               taskName: '',     
@@ -433,7 +439,7 @@ export default
           servicesInfos: [],//服务命名特征
 
           datasInfos: [],//服务数据列表
-        
+         activeNames: ['1'],//折叠框默认展开1
 
         
         value:'',    
@@ -796,6 +802,9 @@ export default
              console.log(dataset+"*****")
             //this.$router.push({name: "dataInfoImport", params: {datasetAbout: dataset}});
         },
+        handleChange(val) {
+        console.log(val);
+      },
 
             
     },    

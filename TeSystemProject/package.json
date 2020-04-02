@@ -1,5 +1,5 @@
 {
-  "name": "first-vue",
+  "name": "jstz-ui",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "陆茜茜<541971057@qq.com>",
@@ -22,6 +22,7 @@
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.23.2",
     "vxe-table": "^2.5.22",
+    "webpack-war-plugin": "^1.0.0-beta.3",
     "xe-utils": "^2.2.11"
   },
   "devDependencies": {
