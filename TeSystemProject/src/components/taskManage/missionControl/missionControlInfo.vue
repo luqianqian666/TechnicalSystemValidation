@@ -50,22 +50,23 @@
                             </div>
                             <div class="panel-body chart">
                               <el-table
-                                      :data="testCases"
+                                     :data="fuzzy.slice((curPage-1)*pagesize,curPage*pagesize)"
                                       border
                                       ref="multipleTable"
+                                       max-height="550" 
                                       >
                                       <el-table-column
                                           prop="code"
                                           label="任务编号"
                                           width="150" 
-                                         align="center"
+                                          align="center"
                                           header-align="center"
                                       >  
                                       </el-table-column>
                                       <el-table-column
                                           prop="name"
                                           label="任务名称"
-                                         align="center"
+                                          align="center"
                                           header-align="center"
                                       >  
                                       </el-table-column>
@@ -169,23 +170,7 @@ export default {
      data: function () {
       return {
         tasknameSearch:'',
-        testCases:[{
-            code: 'ceyz-jstzyz-01-01-1',
-            name: 'aaaaaaaa',
-            peried:'1',
-            status:'已完成',
-            startingTime:'2020-1-1',
-            endtingTime:'2020-2-2'
-           
-          }, {
-            code: 'ceyz-jstzyz-01-01-2',
-            name: 'bbbbbbbbb',
-            peried:'1',
-            status:'已完成',
-            startingTime:'2020-1-3',
-            endtingTime:'2020-2-3'
-            
-          }],
+        testCases:[],
         start_time:'',
         end_time:'',
         time_type:'',
@@ -204,8 +189,9 @@ export default {
 */
     created(){
        this.time_type = '2';//默认状态按照已完成查询
-         this.tasknameSearch='';
+        // this.tasknameSearch='';
          this.getTaskNameList();
+         this.loadAllProjects();
     },
     mounted() {
      // this.time_type = '2';//默认状态按照已完成查询
@@ -217,8 +203,12 @@ export default {
       },
       // 模糊搜索
       fuzzy() {
-        const search = this.search;
-        if (search) {
+        const tasknameSearch = this.tasknameSearch;
+        const start_time=this.start_time;
+        const end_time=this.end_time;
+        const time_type=this.time_type
+        if (tasknameSearch||start_time||end_time||time_type) {
+        
           // filter() 方法创建一个新的数组，
           // 新数组中的元素是通过检查指定数组中符合条件的所有元素。
           // 注意： filter() 不会对空数组进行检测。
@@ -233,7 +223,7 @@ export default {
             return Object.keys(data).some(key => {
               // indexOf() 返回某个指定的字符在某个字符串中首次出现的位置，如果没有找到就返回-1；
               // 该方法对大小写敏感！所以之前需要toLowerCase()方法将所有查询到内容变为小写。
-              return String(data[key]).indexOf(search) > -1
+              return String(data[key]).indexOf(tasknameSearch||start_time||end_time||time_type) > -1
             })
           })
         }
@@ -245,24 +235,39 @@ export default {
       /*加载所有项目*/
       loadAllProjects() 
       {
-        let vm = this;
-        let url = this.global_url + 'projectInfo?' + new Date().getTime();
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-          if (request.readyState === 4) {
-            if (request.status === 200) {
-              // console.log(request.responseText);
-              vm.project_list = JSON.parse(request.responseText);
-              vm.loading_bottom = false;
-            } else {
-              console.log('服务器出错了,无法加载所有项目，请稍后再试，request.status：' + request.status);
-            }
-          }
-        };
-        request.open("GET", url, true);
-        request.send();
-        this.loading_bottom = true;
+          this.$axios.get('../static/descFile_0330.json')
+                          .then(res =>{
+                        
+                            for(var i=0;i<res.data.module.length;i++)
+                            {
+                                
+                                if(res.data.module[i].name=="服务元数据符合性验证"){
+                                   
+                                  let categoryList= res.data.module[i].categoryList;
+                                
+                                  for(let j=0;j<categoryList.length;j++){
+                                     
+                                     let indicatorList= categoryList[j].indicatorList;
+                                      console.log(indicatorList);
+                                       for(let l=0;l<indicatorList.length;l++){
+                                         let characteristicsList=indicatorList[l].characteristicsList;
+                                         for(let m=0;m<characteristicsList.length;m++){                                           
+                                             this.testCases.push({code:characteristicsList[m].id,name:characteristicsList[m].desc,peried:characteristicsList[m].checkPoint,status:characteristicsList[m].checkProperty,startingTime:"2020-3-1",enddingTime:"2020-4-1"});
+                                           
+                                            // console.log("characteristicsList[m].id"+characteristicsList[m].id);
+                                          }       
+                                       }                                    
+                                  }    
+
+                                }
+                            }
+                              
+                          })
+                          .catch(err=>{console.log("error is"+err)}
+                          )
       },
+
+
         filterHandler(value, row, column) {
             const property = column['property'];
             return row[property] === value;

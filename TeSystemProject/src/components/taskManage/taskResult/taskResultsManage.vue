@@ -4,8 +4,8 @@
   <el-container>
             <el-header><testCaseNavBar></testCaseNavBar> </el-header>
             <br>
-    <!--<el-button type="text" @click="table = true">验证结果管理</el-button>-->
-    <el-button type="text" @click="dialog = true">验证日志管理</el-button>
+    <!--<el-button type="text" @click="table = true">验证结果管理</el-button>
+    <el-button type="text" @click="dialog = true">验证日志管理</el-button>-->
         <div>
         <el-radio-group v-model="direction">
         <el-radio label="btt" class="baseTitle" >验证结果管理
@@ -17,7 +17,7 @@
       </div>
       <br>
                                <div >                            
-                                  <label>任务名称：
+                                 <label>任务名称：
                                    <el-input  size="mini" placeholder="请输入任务名称" v-model="tasknameSearch" style=" width:180px" >
                                     <i class="el-icon-search el-input__icon" slot="suffix" @click="getTaskNameList"></i>
                                     </el-input>
@@ -50,7 +50,7 @@
                            <div class="panel anel-danger" style="background-color: rgb(240,222,237); ">
                             <div class="panel-heading" style="text-align: center">任务列表</div>
                             <div class="panel-body">
-                               <el-table max-height="300"   :data="servicesInfos"   @selection-change="handleSelectionChange"  ref="multipleTable" >                               
+                               <el-table max-height="300"   :data="fuzzy.slice((curPage-1)*pagesize,curPage*pagesize)"  @selection-change="handleSelectionChange"  ref="multipleTable" >                               
                                <el-table-column label="操作" min-width="100" align="center"   type="selection"  :reserver-selection="true"> </el-table-column>
                                <el-table-column prop="index" label="序号"  align="center">
                                     <template slot-scope="scope">
@@ -62,23 +62,73 @@
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">                               
                                      <span style="font-size: medium;">
-                                       <el-link icon="el-icon-edit"  style="font-size: 12px" @click="viewMore(scope.row.code)">详细</el-link>&nbsp;                                    
+                                       <el-link icon="el-icon-download"  style="font-size: 12px" @click="viewMore(scope.row.code)">导出</el-link>&nbsp;                                    
                                     </span>
                                  </template>
                               </el-table-column>
                              </el-table>
+                              
                             </div>
                             </div>
                             </el-col>
                             </el-row >
-                            </el-collapse-item>                          
+                            <br>       
+                             <span style="float: right">
+                             <el-button @click="upClick">
+                              <i class="el-icon-download"></i>批量导出
+                              </el-button>
+                              </span>
+                            </el-collapse-item>     
+                
                            </el-collapse>
-      </div>
-              
+
+                   </div>
+              <div >
+               <br>
+                <div class="resultInfo">近七日任务执行情况</div>
+                  <br><br>
+               <div style="width: 100%; border-bottom: 3px solid #ccc; text-align: left; margin-left: 0px;display: flex">
+                  <div class="testResultLine" :style="getLineStyle(unstart, 'unstart')">
+                    未执行:{{unstart}}
+                </div>
+                <div class="testResultLine" :style="getLineStyle(pass, 'pass')">
+                    通过:{{pass}}
+                </div>
+                <div class="testResultLine" :style="getLineStyle(fail, 'fail')">
+                    失败:{{fail}}
+                </div>
+                <div class="testResultLine" :style="getLineStyle(block, 'block')">
+                    阻塞:{{block}}
+                </div>
+                <div class="testResultLine" :style="getLineStyle(jump, 'jump')">
+                    跳过:{{jump}}
+                </div>
+               </div>
+              </div>
+
+
+        <div style="width: 100%; margin-top: 30px">
+         
+            <el-row >
+                <el-col :span="12">
+                    <div class="testResultChart" style="width: 500px; height: 350px" id="testCasePassRate">
+                        
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="testResultChart" style="width: 500px; height: 350px" id="testingRequirements">
+                        
+                    </div>
+                </el-col>
+            </el-row>
+          
+        </div>
+
                     <el-drawer  style="max-width: 1024px;text-align:center;margin:0 auto"
-                            title="验证日志管理!"
+                            title="验证日志管理"
                             :visible.sync="table"
                             direction="btt"
+                            :before-close="handleClose"
                             size="82%" >
                               <el-table max-height="550"   :data="servicesInfos"   @selection-change="handleSelectionChange"  ref="multipleTable" >
                                   
@@ -89,12 +139,12 @@
                                   </template>
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column prop="describe" label="日志名称" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">
                                 
                                      <span style="font-size: medium;">
-                                       <el-link icon="el-icon-download"  style="font-size: 12px" @click="viewMore(scope.row.code)">导出</el-link>&nbsp;
+                                       <el-link icon="el-icon-edit"  style="font-size: 12px" @click="viewMore(scope.row.code)">详细</el-link>&nbsp;
                                      
                                     </span>
 
@@ -132,6 +182,9 @@ import echartsLiquidfill from 'echarts-liquidfill'
         start_time:'',
         end_time:'',
         time_type:'',
+          pagesize: 7,
+        curPage: 1,
+        search: '',
         table: false,
         dialog: false,
         loading: false,
@@ -145,14 +198,10 @@ import echartsLiquidfill from 'echarts-liquidfill'
           block: 10,
           jump: 10,
           charts: '',
-          checkingTestcases: ["54", "45", "32", "42", "25", "48", "40"],
-          passingTestcases: ["18", "25", "12", "15", "17", "16", "20"],
-          confirmingTestcases: ["5", "3", "0", "0", "2", "1", "0"],
           testingRequirements: ["80", "78", "73", "70", "69", "67", "66"],
-          testCasePassRate: 0.5,
-          testCoverRate: 0.25,
-          oncePassRate: 0.75,
-          backPassRate: 0.88
+          testCasePassRate: ["100", "78", "73", "50", "69", "67", "66"],
+         // testCasePassRate: 0.5,
+        
 
 
 
@@ -160,15 +209,55 @@ import echartsLiquidfill from 'echarts-liquidfill'
        
       
     },
+
+     computed: {
+      global_url() {
+     return this.$store.state.global_url
+      },
+      // 模糊搜索
+      fuzzy() {
+        const tasknameSearch = this.tasknameSearch;
+       
+        if (tasknameSearch) {
+          // if (start_time) {
+           
+          // filter() 方法创建一个新的数组，
+          // 新数组中的元素是通过检查指定数组中符合条件的所有元素。
+          // 注意： filter() 不会对空数组进行检测。
+          // 注意： filter() 不会改变原始数组。
+          return this.servicesInfos.filter(data => {
+            // some() 方法用于检测数组中的元素是否满足指定条件;
+            // some() 方法会依次执行数组的每个元素：
+            // 如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测;
+            // 如果没有满足条件的元素，则返回false。
+            // 注意： some() 不会对空数组进行检测。
+            // 注意： some() 不会改变原始数组。
+            return Object.keys(data).some(key => {
+              // indexOf() 返回某个指定的字符在某个字符串中首次出现的位置，如果没有找到就返回-1；
+              // 该方法对大小写敏感！所以之前需要toLowerCase()方法将所有查询到内容变为小写。
+              return String(data[key]).indexOf(tasknameSearch) > -1
+            })
+          })
+        }
+        return this.servicesInfos
+      },
+    },
      mounted() {//用来向后端发起请求拿到数据以后做一些业务处理
      
    
       this.loadAllProjects();
+      this.$nextTick(function() {
+           
+            this.drawLine('testingRequirements');
+            this.drawBar('testCasePassRate');
+           // this.drawWaterBall('testCasePassRate');
+          
+        })
     },
 
      created() {
        //初始化数据
-       servicesInfos=[];
+      // servicesInfos=[];
        
       this.loadAllProjects();  
       this.sevenTurnover();
@@ -186,6 +275,20 @@ import echartsLiquidfill from 'echarts-liquidfill'
          getTaskNameList(){
          
        },
+      getLineStyle(num, str) {
+            var total = this.unstart + this.pass + this.fail + this.block + this.jump;
+            var width = num/total*100;
+            if(str == "unstart")
+                return "border-bottom: 3px solid #1b8fff;color: #1b8fff;width:" + width + "%";
+            else if(str == "pass")
+                return "border-bottom: 3px solid #48a902;;color: #48a902;width:" + width + "%";
+            else if(str == "fail")
+                return "border-bottom: 3px solid #ec3200;color: #ec3200;width:" + width + "%";
+            else if(str == "block")
+                return "border-bottom: 3px solid #E6A23C;color: #E6A23C;width:" + width + "%";
+            else
+                return "color: #ccc;width:" + width + "%";
+        },
         loadAllProjects() {
                     
                            this.$axios.get('../static/descFile_0330.json')
@@ -223,26 +326,278 @@ import echartsLiquidfill from 'echarts-liquidfill'
      
        upClick(){},
 
+          drawWaterBall(id) {
+            var chartTitle = '';
+            var chartValue;
+            if(id == "testCasePassRate") {
+                chartTitle = '近七日验证通过率';
+                chartValue = this.testCasePassRate;
+            }
+           
+            this.charts = echarts.init(document.getElementById(id));
+            this.charts.setOption({
+                title: {// 标题
+                    text: chartTitle,
+                    textStyle: {// 标题的样式
+                        // color: '#ccc', // 字体颜色
+                        // fontSize: 15,
+                        align: 'center', // 文字的水平方式
+                        baseline: 'middle',
+                        position: 'inside',
+                          fontWeight:'normal',    //粗细
+                        verticalAlign: 'middle'// 文字的垂直方式
+                    },
+                left: 'center', // 定位
+                top: '0%'
+            },
+            series: [{
+                type: 'liquidFill',
+                radius: '60%',
+                waveAnimation: true,
+                data: [{
+                    value: chartValue,
+                    direction: 'left',
+                    itemStyle: {
+                        normal: {
+                            color: '#1890ff'
+                        }
+                    }
+                }],
+                outline: {
+                    show: false , //是否显示轮廓 布尔值
+                },
+                itemStyle: {
+                    opacity: 0.9, // 波浪的透明度
+                    shadowBlur: 0 // 波浪的阴影范围
+                },
+                backgroundStyle: {
+                    color: '#00c888' // 图表的背景颜色
+                },
+                label: { // 数据展示样式
+                    show: true,
+                    // color: '#000',
+                    // insideColor: '#fff',
+                    fontSize: 30, //百分比数字的字号大小
+                    fontWeight: 400,
+                    align: 'center',
+                    baseline: 'middle',
+                    position: 'inside'
+                }
+          }]
+        })
+        },
+       //绘制折线图
+        drawLine(id) {
+            var yValue = [];
+            var lineColor = '#1fadfd';
+            var chartTitle = '';
+             if(id == "testingRequirements") {
+                yValue = this.testingRequirements;
+                lineColor = '#ad2908';
+                chartTitle = '剩余待验证项数';
+            }
+            this.charts = echarts.init(document.getElementById(id));
+            this.charts.setOption({
+                title: {
+                     text: chartTitle,
+                     textStyle: {// 标题的样式
+                        // color: '#ccc', // 字体颜色
+                        // fontSize: 15,
+                        align: 'center', // 文字的水平方式
+                        baseline: 'middle',
+                        position: 'inside',
+                         fontWeight:'normal',    //粗细
+                        verticalAlign: 'middle'// 文字的垂直方式
+                    },
+                      left: 'center', // 定位
+                      top: '0%'
+                   
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['近七日收益'],
+                    show: false
+                },
+                grid: {
+                    top: '30%',
+                    left: '4%',
+                    right: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    },
+                    show: false
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ["TASK1","TASK2","TASK3","TASK4","TASK5","TASK6","TASK7"],
+                    axisLabel: {
+                        show: true,
+                        // textStyle: {
+                        //     color: '#CCC',  //更改坐标轴文字颜色
+                        //     fontSize : 13      //更改坐标轴文字大小
+                        // }
+                    },
+                    axisTick: {show: false},
+                    boundaryGap: true
+                },
+                yAxis: {
+                    type: 'value',
+                    splitNumber: 6,
+                    // axisLine: {
+                    //     lineStyle: {
+                    //         // 设置y轴颜色
+                    //         color: '#ccc',
+                    //         fontSize: '50px',
+                    //     }
+                    // },
+                    axisLabel: {
+                        show: true,
+                        // textStyle: {
+                        //     color: '#CCC',  //更改坐标轴文字颜色
+                        //     fontSize : 13      //更改坐标轴文字大小
+                        // }
+                    },
+                    axisTick: {show: false},
+                    splitLine:{show: false},
+                },
+                series: [{
+                    name: '数量',
+                    type: 'line',
+                    stack: '总量',
+                    data: yValue,
+                    itemStyle:{
+                        normal:{
+                            // 拐点上显示数值
+                             label : {
+                                show: true,
+                                color: '#fff'
+                            },
+                            borderColor: lineColor,  // 拐点边框颜色
+                            lineStyle:{                 
+                                width: 2,  // 设置线宽
+                                type: 'solid',  //'dotted'虚线 'solid'实线
+                                color: lineColor
+                            }
+                        }
+                    }
+                }]
+            })
+        },
+  
+  
+          drawBar(id) {
+            var yValue = [];
+            var lineColor = '#1fadfd';
+            var chartTitle = '';
+             if(id == "testCasePassRate") {
+                yValue = this.testCasePassRate;
+                lineColor = '#ad2908';
+                chartTitle = '验证通过项数';
+            }
+            this.charts = echarts.init(document.getElementById(id));
+            this.charts.setOption({
+                title: {
+                     text: chartTitle,
+                     textStyle: {// 标题的样式
+                        // color: '#ccc', // 字体颜色
+                        // fontSize: 15,
+                        align: 'center', // 文字的水平方式
+                        baseline: 'middle',
+                        position: 'inside',
+                         fontWeight:'normal',    //粗细
+                        verticalAlign: 'middle'// 文字的垂直方式
+                    },
+                      left: 'center', // 定位
+                      top: '0%'
+                   
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['8888888'],
+                    show: false
+                },
+                grid: {
+                    top: '30%',
+                    left: '4%',
+                    right: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    },
+                    show: false
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ["TASK1","TASK2","TASK3","TASK4","TASK5","TASK6","TASK7"],
+                    axisLabel: {
+                        show: true,
+                        // textStyle: {
+                        //     color: '#CCC',  //更改坐标轴文字颜色
+                        //     fontSize : 13      //更改坐标轴文字大小
+                        // }
+                    },
+                    axisTick: {show: false},
+                    boundaryGap: true
+                },
+                yAxis: {
+                    type: 'value',
+                    splitNumber: 6,
+                    axisLabel: {
+                        show: true,
+                        // textStyle: {
+                        //     color: '#CCC',  //更改坐标轴文字颜色
+                        //     fontSize : 13      //更改坐标轴文字大小
+                        // }
+                    },
+                    axisTick: {show: false},
+                    splitLine:{show: false},
+                },
+                series: [{
+                    name: '数量',
+                    type: 'bar',
+                    stack: '总量',
+                    data: yValue,
+                    itemStyle:{
+                        normal:{
+                            // 拐点上显示数值
+                             label : {
+                                show: true,
+                                color: '#fff'
+                            },
+                            borderColor: lineColor,  // 拐点边框颜色
+                            lineStyle:{                 
+                                width: 2,  // 设置线宽
+                                type: 'solid',  //'dotted'虚线 'solid'实线
+                                color: lineColor
+                            }
+                        }
+                    }
+                }]
+            })
+        },
+        
               
                 
-    
-    handleClose(done) {
-      if (this.loading) {
-        return;
-      }
-      this.$confirm('确定要提交表单吗？')
-        .then(_ => {
-          this.loading = true;
-          this.timer = setTimeout(() => {
+     handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
             done();
-            // 动画关闭需要一定的时间
-            setTimeout(() => {
-              this.loading = false;
-            }, 400);
-          }, 2000);
-        })
-        .catch(_ => {});
-    },
+              this.direction='btt';
+          })
+          .catch(_ => {});
+      }
+    
    
       
     },
@@ -270,8 +625,7 @@ padding:0 20px 0 0px;
 .baseTitle {
         font-size: x-large;
         font-weight: bold;
-        float: center;
-        
+        float: center; 
     }
 .el-menu-demo .el-input {
   font-size: large;
@@ -287,6 +641,7 @@ padding:0 20px 0 0px;
     text-align: center;
     /* padding-left: 1%; */
     font-size: large;
+       font-weight: normal;
    /* font-weight: bold;*/
     
 }
@@ -304,9 +659,9 @@ padding:0 20px 0 0px;
   .testResultChart {
       font-size: medium;
       min-height: 300px;
-      text-align: left;
+      text-align: center;
       /* line-height: 45px; */
-      padding-left: 1%;
+      
   }
 
 </style>

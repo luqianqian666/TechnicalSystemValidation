@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const { WebpackWarPlugin } = require('webpack-war-plugin')
+const { WebpackWarPlugin } = require('webpack-war-plugin')//打war包
 
 
 const env = require('../config/prod.env')
@@ -31,7 +31,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
-    new WebpackWarPlugin(),
+    new WebpackWarPlugin(),//打war包
     new webpack.DefinePlugin({
       'process.env': env
     }),
