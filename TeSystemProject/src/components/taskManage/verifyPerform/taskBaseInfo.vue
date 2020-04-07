@@ -435,7 +435,7 @@ export default
             },     
           servicesInfos: [],//服务命名特征
           datasInfos: [],//服务数据列表
-         activeNames: ['1'],//折叠框默认展开1
+          activeNames: ['1'],//折叠框默认展开1
 
         
         value:'',    
@@ -515,11 +515,14 @@ export default
 
     
     },
+     computed: {
+       global_url() {
+        return config.global_url;
+      }
+    },
     methods: 
     {
-
-
-          
+         
       toggleSelection(rows) {
         if (rows) {
            rows.forEach(row => {
@@ -527,7 +530,7 @@ export default
           });
         } else {
           this.$refs.multipleTable.clearSelection();
-        }
+        }NavigationPreloadManager
       },
 
       handleSelectionChange(val) {

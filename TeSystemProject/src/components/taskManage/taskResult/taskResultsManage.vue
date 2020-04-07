@@ -212,7 +212,9 @@ import echartsLiquidfill from 'echarts-liquidfill'
 
      computed: {
       global_url() {
-     return this.$store.state.global_url
+     
+       return config.global_url;
+
       },
       // 模糊搜索
       fuzzy() {
@@ -260,7 +262,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
       // servicesInfos=[];
        
       this.loadAllProjects();  
-      this.sevenTurnover();
+    
       },
 
      methods: {
@@ -290,7 +292,8 @@ import echartsLiquidfill from 'echarts-liquidfill'
                 return "color: #ccc;width:" + width + "%";
         },
         loadAllProjects() {
-                    
+                       let url = this.global_url + 'reviewdetail?' +  '&' + new Date().getTime();
+                       console.log("url="+url);
                            this.$axios.get('../static/descFile_0330.json')
                           .then(res =>{
                         
@@ -308,7 +311,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                                        for(let l=0;l<indicatorList.length;l++){
                                          let characteristicsList=indicatorList[l].characteristicsList;
                                          for(let m=0;m<characteristicsList.length;m++){
-                                            console.log("characteristicsList[m].id"+characteristicsList[m].id);                                           
+                                         //   console.log("characteristicsList[m].id"+characteristicsList[m].id);                                           
                                              this.servicesInfos.push({code:characteristicsList[m].id,describe:characteristicsList[m].desc});
                                             
                                           }       
@@ -316,7 +319,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                                   }                                  
                                 }
                             }
-                              console.log(this.servicesInfos);
+                             // console.log(this.servicesInfos);
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )

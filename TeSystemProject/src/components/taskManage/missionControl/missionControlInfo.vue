@@ -199,7 +199,7 @@ export default {
     },
     computed: {
       global_url() {
-     return this.$store.state.global_url
+         return config.global_url;
       },
       // 模糊搜索
       fuzzy() {
@@ -230,6 +230,7 @@ export default {
         return this.testCases
       },
     },
+  
     methods: 
     {
       /*加载所有项目*/
@@ -240,9 +241,7 @@ export default {
                         
                             for(var i=0;i<res.data.module.length;i++)
                             {
-                                
                                 if(res.data.module[i].name=="服务元数据符合性验证"){
-                                   
                                   let categoryList= res.data.module[i].categoryList;
                                 
                                   for(let j=0;j<categoryList.length;j++){

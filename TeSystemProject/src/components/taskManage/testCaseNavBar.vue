@@ -56,10 +56,8 @@ export default {
 
     },
      handleSelect(key, keyPath) {
-        console.log("--------------");
-        console.log("key"+key);
-        console.log("keyPath"+keyPath);
-        activeIndex=key;
+       
+      
         console.log(key, keyPath);
       },
     
@@ -67,12 +65,8 @@ export default {
       validationPerformed() {
           let vm=this;   
           vm.$router.push("/taskBaseInfo");
-      
-   
       },
-      missionControl() {  
-        
-          
+      missionControl() {          
         this.$router.push("/missionControlInfo");
       },
        gotoTaskResultList() {
@@ -125,7 +119,5 @@ padding:0 20px 0 0px;
 .el-menu.el-menu--horizontal {
   border: 0;
 }
-
-
 </style>
 

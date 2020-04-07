@@ -15,7 +15,7 @@ const store = new Vuex.Store({
       activityId: window.sessionStorage.getItem('activityId') == null ? null : window.sessionStorage.getItem('activityId'),
       activityName: window.sessionStorage.getItem('activityName') == null ? null : window.sessionStorage.getItem('activityName'),
       satellite: window.sessionStorage.getItem('satellite') == null ? null : window.sessionStorage.getItem('satellite'),
-   //   global_url: config.global_url,  //服务器地址
+     // global_url: config.global_url,  //服务器地址
     //   {
     //     name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : JSON.parse(window.localStorage.getItem('user' || '[]')).name,
     //     username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
