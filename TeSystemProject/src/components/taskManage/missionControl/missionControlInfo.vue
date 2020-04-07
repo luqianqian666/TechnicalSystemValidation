@@ -198,8 +198,8 @@ export default {
       
     },
     computed: {
-      global_url() {
-     return this.$store.state.global_url
+       global_url() {
+      return config.global_url;
       },
       // 模糊搜索
       fuzzy() {

@@ -56,10 +56,8 @@ export default {
 
     },
      handleSelect(key, keyPath) {
-        console.log("--------------");
-        console.log("key"+key);
-        console.log("keyPath"+keyPath);
-        activeIndex=key;
+      
+       
         console.log(key, keyPath);
       },
     

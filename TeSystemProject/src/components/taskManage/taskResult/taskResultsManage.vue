@@ -212,7 +212,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
 
      computed: {
       global_url() {
-     return this.$store.state.global_url
+      return config.global_url;
       },
       // 模糊搜索
       fuzzy() {
@@ -260,7 +260,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
       // servicesInfos=[];
        
       this.loadAllProjects();  
-      this.sevenTurnover();
+    
       },
 
      methods: {
