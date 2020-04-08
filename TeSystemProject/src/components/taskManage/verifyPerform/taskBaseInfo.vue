@@ -484,9 +484,10 @@ export default
       },
     computed: //赋值
     {
-     /* global_url() {
-      return this.$store.state.global_url
+        global_url() {
+        return config.global_url;
       },
+     /* 
       // 模糊搜索
    /*   fuzzy() {
         const search = this.search;

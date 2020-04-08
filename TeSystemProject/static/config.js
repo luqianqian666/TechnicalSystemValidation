@@ -5,5 +5,6 @@ const config = {
     return ;
   }*/
   
+  
   grafana_site:'http://www.baidu.com'
 };

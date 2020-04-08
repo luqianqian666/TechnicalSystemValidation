@@ -301,7 +301,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                             {
                                  
                                 if (res.data.module[i].name=="服务命名符合性验证"){
-                                 // alert("okbb"+res.data.module[i].name);
+                               
                                   let categoryList= res.data.module[i].categoryList;
                                
                                   for(let j=0;j<categoryList.length;j++){
