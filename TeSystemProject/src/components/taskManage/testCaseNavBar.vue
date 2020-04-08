@@ -61,32 +61,7 @@ export default {
       
         console.log(key, keyPath);
       },
-    
-    
-      validationPerformed() {
-          let vm=this;   
-          vm.$router.push("/taskBaseInfo");
-      },
-      missionControl() {          
-        this.$router.push("/missionControlInfo");
-      },
-       gotoTaskResultList() {
-          
-        this.$store.state.activityId=4;
-        this.$router.push("/taskResultsManage")
-       
-      },
-       gotoTaskConfig() {
-           alert("ok");
-          this.$store.state.activityId=5;
-        this.$router.push("/logo")
-       
-      },
-      gotoTaskManage() {
-        
-       
-        console.log(key, keyPath);
-      },
+
     }
    }
 </script>
