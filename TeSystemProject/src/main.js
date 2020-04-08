@@ -17,7 +17,6 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 
-
 Vue.config.debug = true; 
 Vue.use(ElementUI);
 Vue.use(VueRouter); 

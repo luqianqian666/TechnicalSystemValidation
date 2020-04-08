@@ -485,7 +485,7 @@ export default
     computed: //赋值
     {
         global_url() {
-      return config.global_url;
+        return config.global_url;
       },
      /* 
       // 模糊搜索

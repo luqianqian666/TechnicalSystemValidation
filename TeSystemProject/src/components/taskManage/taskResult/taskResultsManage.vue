@@ -298,7 +298,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                             {
                                  
                                 if (res.data.module[i].name=="服务命名符合性验证"){
-                                 // alert("okbb"+res.data.module[i].name);
+                               
                                   let categoryList= res.data.module[i].categoryList;
                                
                                   for(let j=0;j<categoryList.length;j++){
@@ -308,7 +308,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                                        for(let l=0;l<indicatorList.length;l++){
                                          let characteristicsList=indicatorList[l].characteristicsList;
                                          for(let m=0;m<characteristicsList.length;m++){
-                                            console.log("characteristicsList[m].id"+characteristicsList[m].id);                                           
+                                                                             
                                              this.servicesInfos.push({code:characteristicsList[m].id,describe:characteristicsList[m].desc});
                                             
                                           }       
@@ -316,7 +316,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                                   }                                  
                                 }
                             }
-                              console.log(this.servicesInfos);
+                            
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )

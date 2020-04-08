@@ -6,23 +6,24 @@
       mode="horizontal"
       font-weight="bold"
       background-color="#F2F6FC"
-      :default-active="activeIndex"
+      :default-active="this.$route.path"
+      router
       @select="handleSelect"
       >
       
-      <el-menu-item index="1" @click="validationPerformed"  >
+      <el-menu-item index="/taskBaseInfo"  >
           验证执行
       </el-menu-item>
-      <el-menu-item index="2" @click="missionControl">
+      <el-menu-item index="/missionControlInfo" >
           验证任务监控
       </el-menu-item>
-      <el-menu-item index="3" @click="gotoTaskResultList">
+      <el-menu-item index="/taskResultsManage" >
           验证结果管理
       </el-menu-item>
-      <el-menu-item index="4" @click="gotoTaskConfig">
+      <el-menu-item index="4" > 
           验证配置
       </el-menu-item>
-      <el-menu-item index="5" @click="gotoTaskManage">
+      <el-menu-item index="5" >
           验证床管理
       </el-menu-item>
     </el-menu>
@@ -60,37 +61,6 @@ export default {
        
         console.log(key, keyPath);
       },
-    
-    
-      validationPerformed() {
-          let vm=this;   
-          vm.$router.push("/taskBaseInfo");
-      
-   
-      },
-      missionControl() {  
-        
-          
-        this.$router.push("/missionControlInfo");
-      },
-       gotoTaskResultList() {
-          
-        this.$store.state.activityId=4;
-        this.$router.push("/taskResultsManage")
-       
-      },
-       gotoTaskConfig() {
-           alert("ok");
-          this.$store.state.activityId=5;
-        this.$router.push("/logo")
-       
-      },
-      gotoTaskManage() {
-        
-       
-      },
-     
-     
     }
    }
 </script>
