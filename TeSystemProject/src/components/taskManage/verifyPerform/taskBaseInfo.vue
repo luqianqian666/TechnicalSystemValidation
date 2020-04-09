@@ -185,20 +185,22 @@
                                                    <!-- 文件上传 -->    
                                                        <el-upload
                                                            class="upload-demo"
-                                                           action="https://jsonplaceholder.typicode.com/posts/"
+                                                            ref="upload1" 
+                                                           action=""
                                                            :on-preview="handlePreview"
                                                            :on-remove="handleRemove"
                                                            :before-upload="beforeAvatarUpload"
                                                            :before-remove="beforeRemove"
                                                            :on-change="handleChangeInter"
                                                            :on-error="uploadOnError"
-                                                           accept=".xml"
-                                                         
-                                                           multiple
+                                                            accept=".xml"
+                                                            multiple
                                                             :limit="1" 
                                                             :on-exceed="handleExceed"
-                                                            :file-list="fileList"
-                                                            :show-file-list="true"
+                                                            :file-list2="fileList"
+                                                            :show-file-list="true"                                        
+                                                            :auto-upload="false"     
+                                                            :http-request="uploadFile"                                                                                                       
                                                             v-model="taskInfo.descFile.interfaceFile">
                                                              <el-button size="small" class="el-icon-folder-opened" slot="trigger" type="primary"> 接口文件</el-button>
                                                              <span style=" font-size:12px">  只能上传xml文件  </span>
@@ -217,7 +219,7 @@
                                                    <!-- 文件上传 -->    
                                                        <el-upload
                                                            class="upload-demo"
-                                                           action="https://jsonplaceholder.typicode.com/posts/"
+                                                           action=" "
                                                            :on-preview="handlePreview"
                                                           :before-upload="beforeAvatarUpload"
                                                            :on-remove="handleRemove"
@@ -228,9 +230,11 @@
                                                              multiple
                                                             :limit="1"
                                                             :on-exceed="handleExceed"
-                                                            :file-list="fileList"
-                                                            :http-request="uploadFile"
+                                                            :file-list2="fileList"
+                                                            :http-request="uploadFile"
                                                             :show-file-list="true"
+                                                            ref="upload2"
+                                                            :auto-upload="false"
                                                              v-model="taskInfo.descFile.sectionFile">
                                                              <el-button size="small" class="el-icon-folder-opened" slot="trigger" type="primary">段文件</el-button>
                                                              <span style=" font-size:12px">  只能上传xml文件  </span>
@@ -259,9 +263,11 @@
                                                              multiple
                                                             :limit="1"
                                                             :on-exceed="handleExceed"
-                                                            :file-list="fileList"
+                                                            :file-list2="fileList"
                                                             :show-file-list="true"
                                                             :http-request="uploadFile"
+                                                             ref="upload"
+                                                            :auto-upload="false"
                                                              v-model="taskInfo.descFile.registerFile">
                                                              <el-button size="small" class="el-icon-folder-opened" slot="trigger" type="primary">注册文件</el-button>
                                                              <span style=" font-size:12px">  只能上传xml文件  </span>
@@ -421,15 +427,15 @@ export default
      name: "ProjectList",
      data: function () {
       return {
-         uploadpath:'http://localhost:8081/xmlImport/importFileInfo',
+       
          taskInfo: 
             {
               taskName: '',     
               descFile:
               {
-                interfaceFile:'',
-                sectionFile:'',
-                registerFile:''
+                interfaceFile:null,
+                sectionFile:null,
+                registerFile:null
               } ,
               characteristic:[]  
             },     
@@ -467,9 +473,9 @@ export default
               taskName: '',  
               descFile:
               {
-              interfaceFile:'',
-              sectionFile:'',
-              registerFile:''
+              interfaceFile:null,
+              sectionFile:null,
+              registerFile:null
               }, 
               characteristic:[]               
             },
@@ -485,7 +491,7 @@ export default
     computed: //赋值
     {
         global_url() {
-        return config.global_url;
+        return config.getTaskUrl();
       },
      /* 
       // 模糊搜索
@@ -568,64 +574,52 @@ export default
         
             return isxml;
       },
-      handleChangeInter(file, fileList) {
-       // this.fileList = fileList.slice(-3);
+     
+     
+     handleChangeInter(file, fileList) {
+     
+     
        this.fileList=fileList;
        console.log("fileList="+fileList);
-       this.taskInfo.descFile.interfaceFile=fileList.slice(-3)[0].name;
+       this.taskInfo.descFile.interfaceFile=file.raw;
+       console.log("asdad+"+formData.file);
+         console.log("asdad111111+"+formData.fileName);
+          console.log(formData);
        this.fileList=[];
-       // this.taskInfo.descFile.interfaceFile=fileList.slice(-3)[0].name;
-        //console.log("interfacename:"+this.taskInfo.descFile.interfaceFile);
+     
       },
+
+
        handleChangeSec(file, fileList) {
           this.fileList=fileList;
         //this.fileList = fileList.slice(-3);
-         this.taskInfo.descFile.sectionFile=fileList.slice(-3)[0].name;
+         //this.taskInfo.descFile.sectionFile=fileList.slice(-3)[0].name;
+          // let formData = new window.FormData();
+          // formData.append('file', file);
+           this.taskInfo.descFile.sectionFile=file.raw;
          //for(var i=0;i<fileList.slice(-3).length;i++) { this.taskInfo.descFile.sectionFile.push(fileList.slice(-3)[i].name);console.log(i+"="+fileList.slice(-3)[i].name); }
           this.fileList=[];
        
       },
        handleChangeReg(file, fileList) {
-          this.fileList=fileList;
-    
-        this.taskInfo.descFile.registerFile=fileList.slice(-3)[0].name;;
+        this.fileList=fileList;
+          let formData = new window.FormData();
+          formData.append('file', file);
+       this.taskInfo.descFile.registerFile=file.raw;
+       // this.taskInfo.descFile.registerFile=fileList.slice(-3)[0].name;;
       
-          this.fileList=[];
+        this.fileList=[];
        
       },
       uploadOnError(){
        this.$message.warning("文件上传失败,请重新操作");
       },
        
-       uploadFile(file) {
-            console.log("start"+file);
-            var formData = new window.FormData();
-             formData.append('file', file.file);
-              this.$axios.post('/xmlImport/importFileInfo', formData,
-                {
-                    header: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-              },).then(resp => {                   //请求成功后的处理函数   
-                if (resp && resp.status == 200) {
-                    if(resp.data.status == 200){
-                        this.errMsg = resp.data.msg;
-                        this.currentPage = 0;
-                        alert("ok");
-                        Message.success({message: '文件已完成导入'})
-                    } else {
-                          alert("fasile");
-                        Message.error({message: resp.data.msg})
-                    }
-                    
-                } else {
-                    
-                    console.log(resp.data);
-                    Message.error({message: resp.data.msg})
-                }
-                }).catch(err => {                 //请求失败后的处理函数   
-                    console.log(err)
-            })
+      uploadFile(file) {
+
+        this.file = file.file;
+        console.log(file.file.name+"+++")
+         
         },
                     /*加载所有元数据*/
                     loadAllProjects() {
@@ -676,24 +670,7 @@ export default
                           .catch(err=>{console.log("error is"+err)}
                           )
                                               
-       /* let vm = this;
-        let url = this.global_url + 'projectInfo?' + new Date().getTime();
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-          if (request.readyState === 4) {
-            if (request.status === 200) {
-              // console.log(request.responseText);
-              vm.project_list = JSON.parse(request.responseText);
-              vm.loading_bottom = false;
-            } else {
-              console.log('服务器出错了,无法加载所有项目，请稍后再试，request.status：' + request.status);
-            }
-          }
-        };
-        request.open("GET", url, true);
-        request.send();
-        this.loading_bottom = true;*/
-      },
+              },
 
             nextClick() //下一步
             {
@@ -711,36 +688,73 @@ export default
             {
               this.taskInfo.characteristic=[];
               var namenn=this.taskInfo.taskName;//任务名称
-              
-              if(this.taskInfo.taskName=="undefined" || this.taskInfo.taskName=='' || this.taskInfo.taskName==null)
+            
+              if(this.taskInfo.taskName=="undefined" || this.taskInfo.taskName=='' || this.taskInfo.taskName==null)//判断任务名称是否为空
               {
              
                 return  Message.error({message: "任务名称不能为空"});
               }
-              else 
+              else //执行请求
               {  
                
                for( var i=0;i<this.multipleSelection.length;i++){
-                    this.taskInfo.characteristic.push(this.multipleSelection[i].code);
+                    this.taskInfo.characteristic.push(this.multipleSelection[i].code);//添加命名特征列表id
                 }
                 for( var i=0;i<this.multipleSelectiondata.length;i++){
-                    this.taskInfo.characteristic.push(this.multipleSelectiondata[i].code);
+                    this.taskInfo.characteristic.push(this.multipleSelectiondata[i].code);//添加元数据列表id
                 }
-             
-                var finalObj = JSON.stringify(this.taskInfo);//封装成json传输到后台
-                console.log("finalObj="+finalObj)
+
+                
+               // var finalObj = JSON.stringify(this.taskInfo);//封装成json传输到后台
+                console.log("finalObj="+this.taskInfo);
+                this.$refs.upload1.submit();
+                  this.$refs.upload2.submit();
+                    this.$refs.upload.submit();
+                const formData = new FormData();
+                formData.append("data",JSON.stringify(this.taskInfo));
+                formData.append("interfaceFile",this.taskInfo.descFile.interfaceFile)
+                formData.append("sectionFile",this.taskInfo.descFile.sectionFile)
+                formData.append("registerFile",this.taskInfo.descFile.registerFile)
+              // alert(this.global_url);
+                /*执行请求*/
+               this.$axios.post(this.global_url,formData,
+                {
+                    header: {
+                         'Content-Type': 'multipart/form-data'
+                    }
+                 }).then(resp => {                   //请求成功后的处理函数   
+                 if (resp && resp.status == 200) {
+                    var data = resp.data;
+                    if(resp.data.status == 200){
+                        Message.success({message: resp.data.msg})
+                       
+                        // console.log(this.testCases);
+                    } else {
+                        Message.error({message: resp.data.msg})
+                    }
+                    
+                  } else {
+                    console.log(resp.data);
+                    Message.error({message: resp.data.msg})
+                  }
+                  }).catch(err => {                 //请求失败后的处理函数   
+                console.log(err)
+                })
+
+              
+
               }
              
              //清空文件列表
-               this.fileList= []; 
+                this.fileList= []; 
                 this.taskInfo = 
                 {
                   taskName: '',  
                   descFile:
                   {
-                  interfaceFile:'',
-                  sectionFile:'',
-                  registerFile:''
+                  interfaceFile:null ,
+                  sectionFile:null,
+                  registerFile:null
                   }, 
                   characteristic:[]               
                 }
