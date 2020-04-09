@@ -55,6 +55,11 @@
                                       ref="multipleTable"
                                        max-height="550" 
                                       >
+                                      <el-table-column prop="index" label="序号"  align="center">
+                                       <template slot-scope="scope">
+                                        {{scope.$index+1}} 
+                                      </template>
+                                      </el-table-column>
                                       <el-table-column
                                           prop="code"
                                           label="任务编号"
@@ -266,7 +271,12 @@ export default {
                           .catch(err=>{console.log("error is"+err)}
                           )
       },
-
+       
+         viewMore(obj) {
+            //alert("obj="+obj);
+            console.log(obj);
+            this.$router.push({name:'taskDetail', params:{testCase: obj}})
+        },
 
         filterHandler(value, row, column) {
             const property = column['property'];

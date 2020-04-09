@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home'
 import missionControlInfo from '@/components/taskManage/missionControl/missionControlInfo'
+import taskDetail from '@/components/taskManage/missionControl/taskDetail'
 import taskBaseInfo from '@/components/taskManage/verifyPerform/taskBaseInfo'
 import taskResultsManage from '@/components/taskManage/taskResult/taskResultsManage'
+import testCaseEdit from '@/components/taskManage/missionControl/testCaseEdit'
 import leftBar from '@/components/leftBar'
 Vue.use(Router)
 const routerPush = Router.prototype.push
@@ -35,7 +37,16 @@ export default new Router({
         component: taskBaseInfo
       },
       
-    
+      {
+        path: '/taskDetail',
+        name: 'taskDetail',
+        component: taskDetail
+      },
+      {
+        path: '/testCaseEdit',
+        name: 'testCaseEdit',
+        component: testCaseEdit
+      },
    /* {
       path: '/',
       name: 'taskBaseInfo',
