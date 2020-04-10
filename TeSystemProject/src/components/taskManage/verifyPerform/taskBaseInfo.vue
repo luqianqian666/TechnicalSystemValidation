@@ -744,7 +744,7 @@ export default
              
              //清空文件列表
                 this.fileList= []; 
-                this.taskInfo = 
+              /*  this.taskInfo = 
                 {
                   taskName: '',  
                   descFile:
@@ -754,7 +754,7 @@ export default
                   registerFile:null
                   }, 
                   characteristic:[]               
-                }
+                }*/
               
             },
              cancelClick() //取消
@@ -794,6 +794,8 @@ export default
             //this.$router.push({name: "dataInfoImport", params: {datasetAbout: dataset}});
         },
         handleChange(val) {
+          5749+2210
+          26+10+2.8
         console.log(val);
       },
 
