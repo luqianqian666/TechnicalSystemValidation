@@ -747,7 +747,7 @@ export default
              
              //清空文件列表
                 this.fileList= []; 
-                this.taskInfo = 
+              /*  this.taskInfo = 
                 {
                   taskName: '',  
                   descFile:
@@ -757,7 +757,7 @@ export default
                   registerFile:null
                   }, 
                   characteristic:[]               
-                }
+                }*/
               
             },
              cancelClick() //取消
