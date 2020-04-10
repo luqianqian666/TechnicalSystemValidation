@@ -72,7 +72,7 @@
                                   </template>
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">
                                   <!--<el-button :icon="el_icon_star=scope.row.star?'el-icon-star-on':'el-icon-star-off'"
@@ -125,7 +125,7 @@
                                   </template>
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">
                                   <!--<el-button :icon="el_icon_star=scope.row.star?'el-icon-star-on':'el-icon-star-off'"
@@ -427,7 +427,7 @@ export default
      name: "ProjectList",
      data: function () {
       return {
-       
+        show:false,
          taskInfo: 
             {
               taskName: '',     
@@ -577,11 +577,9 @@ export default
      
      
        this.fileList=fileList;
-       console.log("fileList="+fileList);
+      
        this.taskInfo.descFile.interfaceFile=file.raw;
-       console.log("asdad+"+formData.file);
-         console.log("asdad111111+"+formData.fileName);
-          console.log(formData);
+     
        this.fileList=[];
      
       },
@@ -589,19 +587,15 @@ export default
 
        handleChangeSec(file, fileList) {
           this.fileList=fileList;
-        //this.fileList = fileList.slice(-3);
-         //this.taskInfo.descFile.sectionFile=fileList.slice(-3)[0].name;
-          // let formData = new window.FormData();
-          // formData.append('file', file);
+      
            this.taskInfo.descFile.sectionFile=file.raw;
-         //for(var i=0;i<fileList.slice(-3).length;i++) { this.taskInfo.descFile.sectionFile.push(fileList.slice(-3)[i].name);console.log(i+"="+fileList.slice(-3)[i].name); }
-          this.fileList=[];
+        this.fileList=[];
        
       },
        handleChangeReg(file, fileList) {
         this.fileList=fileList;
-          let formData = new window.FormData();
-          formData.append('file', file);
+          // let formData = new window.FormData();
+          // formData.append('file', file);
        this.taskInfo.descFile.registerFile=file.raw;
        // this.taskInfo.descFile.registerFile=fileList.slice(-3)[0].name;;
       

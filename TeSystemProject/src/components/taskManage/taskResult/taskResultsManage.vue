@@ -58,7 +58,7 @@
                                   </template>
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="任务名称" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column prop="describe" label="任务名称" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">                               
                                      <span style="font-size: medium;">
@@ -139,7 +139,7 @@
                                   </template>
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="日志名称" min-width="550" align="center" show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column prop="describe" label="日志名称" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">
                                 
@@ -176,6 +176,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
    {
     data() {
       return {
+        show:false,
         servicesInfos: [],
          tasknameSearch:'',
          multipleSelection:[],
