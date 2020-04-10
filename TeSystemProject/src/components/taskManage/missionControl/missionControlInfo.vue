@@ -182,6 +182,7 @@ export default {
         pagesize: 7,
         curPage: 1,
         search: '',
+        dateFilters:[]
       }
     }, 
    /* props: ['testCases'],
