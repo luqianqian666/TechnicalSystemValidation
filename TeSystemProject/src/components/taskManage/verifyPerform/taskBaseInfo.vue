@@ -706,33 +706,41 @@ export default
                     this.$refs.upload.submit();
                 const formData = new FormData();
                 formData.append("data",JSON.stringify(this.taskInfo));
-                formData.append("interfaceFile",this.taskInfo.descFile.interfaceFile)
-                formData.append("sectionFile",this.taskInfo.descFile.sectionFile)
-                formData.append("registerFile",this.taskInfo.descFile.registerFile)
-              // alert(this.global_url);
+                formData.append("interfaceFile",this.taskInfo.descFile.interfaceFile);
+                formData.append("sectionFile",this.taskInfo.descFile.sectionFile);
+                formData.append("registerFile",this.taskInfo.descFile.registerFile);
+             
                 /*执行请求*/
                this.$axios.post(this.global_url,formData,
                 {
                     header: {
                          'Content-Type': 'multipart/form-data'
                     }
-                 }).then(resp => {                   //请求成功后的处理函数   
-                 if (resp && resp.status == 200) {
-                    var data = resp.data;
-                    if(resp.data.status == 200){
-                        Message.success({message: resp.data.msg})
-                       
-                        // console.log(this.testCases);
-                    } else {
-                        Message.error({message: resp.data.msg})
-                    }
+                 }).then(resp => { 
+                   console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
+                 if (resp && resp.data){
+                  if ("success" == resp.data.result) {
+                   console.log("resp.data.result="+resp.data.result);
+                    this.$message.warning("验证成功");
                     
-                  } else {
-                    console.log(resp.data);
-                    Message.error({message: resp.data.msg})
-                  }
+                   } else {
+                    if("Invaild File" == resp.data.reason){ 
+
+                       this.$alert('文件格式错误', '提示', {
+                     dangerouslyUseHTMLString: true
+                      });
+                  
+                    }else{
+                        Message.error({message: "验证失败"})
+                    }
+                    }
+                    }else{
+                     this.$alert('服务器返回错误', '提示', {
+                     dangerouslyUseHTMLString: true
+                      });
+                    }
                   }).catch(err => {                 //请求失败后的处理函数   
-                console.log(err)
+                      console.log(err)
                 })
 
               
@@ -770,7 +778,7 @@ export default
                     var data = resp.data;
                     if(resp.data.status == 200){
                         Message.success({message: resp.data.msg})
-                        this.getDataset();
+                          this.getDataset();
                         // console.log(this.testCases);
                     } else {
                         Message.error({message: resp.data.msg})
