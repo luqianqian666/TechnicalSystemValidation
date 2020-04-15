@@ -765,29 +765,38 @@ export default
             },         
             deleteDataInfo(code) {
             //删除数据信息，提交至后台，以id作为参数
-            this.$axios.post('/dataset/deleteDataInfo',this.qs.stringify({id: code}),
+            this.$axios.post(this.global_url,this.qs.stringify({id: code}),
                 {
                     header: {
                         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
                     }
-            }).then(resp => {                   //请求成功后的处理函数   
-                if (resp && resp.status == 200) {
-                    var data = resp.data;
-                    if(resp.data.status == 200){
-                        Message.success({message: resp.data.msg})
-                          this.getDataset();
-                        // console.log(this.testCases);
-                    } else {
-                        Message.error({message: resp.data.msg})
-                    }
+                 }).then(resp => { 
+                   console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
+                 if (resp && resp.data){
+                    if ("success" == resp.data.result) {
+                    console.log("resp.data.result="+resp.data.result);
+                    this.$message.warning("验证成功");
                     
-                } else {
-                    console.log(resp.data);
-                    Message.error({message: resp.data.msg})
-                }
-            }).catch(err => {                 //请求失败后的处理函数   
-                console.log(err)
-            })
+                   } else {
+                     if("Invaild File" == resp.data.reason){ 
+
+                         this.$alert('文件格式错误', '提示', {
+                        dangerouslyUseHTMLString: true
+                      });
+                  
+                      }else{
+                        Message.error({message: "验证失败"})
+                      }
+                    }
+                  }else{
+                      this.$alert('服务器返回错误', '提示', {
+                     dangerouslyUseHTMLString: true
+                      });
+                    }
+                  }).catch(err => {                 //请求失败后的处理函数   
+                      console.log(err)
+                })
+
         },
         
         viewMore(dataset) {

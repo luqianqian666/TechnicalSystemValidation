@@ -15,11 +15,10 @@ Router.prototype.push = function push(location) {
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'taskBaseInfo',
-      component: taskBaseInfo
-    },
+     {
+       path: '/',
+       redirect: 'taskBaseInfo',
+     },
     {
       path: '/missionControlInfo',
       name: 'missionControlInfo',
@@ -31,9 +30,9 @@ export default new Router({
       name: 'taskResultsManage',
       component: taskResultsManage
     },
-    {
+      {
         path: '/taskBaseInfo',
-        name: 'taskBaseInfo',
+        name: 'taskBaseInfo', 
         component: taskBaseInfo
       },
       
