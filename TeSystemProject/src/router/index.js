@@ -70,5 +70,5 @@ export default new Router({
   ]
 }*/
 ],
-//mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
+mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
 })
