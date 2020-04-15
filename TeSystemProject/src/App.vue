@@ -7,7 +7,7 @@
     <firstcomponent></firstcomponent> -->
     <!-- <router-link to="/first">dinji1</router-link>
     <router-link to="/second">dinji2</router-link> -->
-    <router-view class="view"></router-view>
+    <router-view class="view"></router-view> 
   </div>
 
   

@@ -15,11 +15,10 @@ Router.prototype.push = function push(location) {
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'taskBaseInfo',
-      component: taskBaseInfo
-    },
+     {
+       path: '/',
+       redirect: 'taskBaseInfo',
+     },
     {
       path: '/missionControlInfo',
       name: 'missionControlInfo',
@@ -31,9 +30,9 @@ export default new Router({
       name: 'taskResultsManage',
       component: taskResultsManage
     },
-    {
+      {
         path: '/taskBaseInfo',
-        name: 'taskBaseInfo',
+        name: 'taskBaseInfo', 
         component: taskBaseInfo
       },
       
@@ -71,5 +70,5 @@ export default new Router({
   ]
 }*/
 ],
-//mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
+mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
 })
