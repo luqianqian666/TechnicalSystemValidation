@@ -480,8 +480,8 @@ export default
               characteristic:[]               
             },
               
-              servicesInfos=[];
-              datasInfos=[];
+             this.servicesInfos=[];
+            this.datasInfos=[];
        
      this.loadAllProjects();  
    // this.$refs.multipleTable.toggleAllSelection();//默认全选
