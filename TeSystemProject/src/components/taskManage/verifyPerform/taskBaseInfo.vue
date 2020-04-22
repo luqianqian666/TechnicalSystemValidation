@@ -16,9 +16,9 @@
                            验证任务名称：
                           </div>
                           </el-col>
-                          <el-col :span="21">   
+                          <el-col :span="21">    
                             <div class="requirementSearchInfo" >
-                             <el-input placeholder="请输入内容" v-model="taskInfo.taskName"   > 
+                             <el-input placeholder="输入内容" v-model="taskInfo.taskName"   > 
                                <i  slot="suffix" ></i>
                             </el-input>
                             </div>
@@ -52,122 +52,28 @@
                       <div id="filter_box" class="pull-right">
                         <span class="baseTitle">验证项选择</span><br><br>
                         <br>
-
+                        
+                        <div >
+                        
+                           <span  style="float: left" ref="addbutton" >
+                            <el-button style="margin-right:10px; width:130px"   :key="index" v-for="(item,index) in testoptionList"  :id="index"  @click="getDetail(index,item)">{{item}}</el-button>
+                            </span> 
+                            
+                             <div v-for="(item,index) in newProcedure" :key="'info2-'+index"  >                         
+                               <characterList v-bind:tableData="item" v-bind:ListName="listname[index]" @transferChri="getChri"> </characterList>
+                             </div>
+                           
+                        </div>
+                      
                         <div style="margin-bottom: 30px; ">
-                         <div label="特征项选择" name="first">
-                           <br>
-                           <el-collapse   v-model="activeNames" @change="handleChange">
-                            <el-collapse-item title="服务命名特征 " name="1"  >
-                            <el-row type="flex" :gutter="50" >
-                              <el-col >
-                              <div class="panel panel-danger" style="background-color: rgb(240,222,237); ">
-                              <div class="panel-heading" style="text-align: center">服务命名特征选择</div>
-                              <div class="panel-body">
-                               <el-table max-height="300"   :data="servicesInfos"   @selection-change="handleSelectionChange"  ref="multipleTable" >
-                                  
-                               <el-table-column label="操作" min-width="100" align="center"   type="selection"  :reserver-selection="true"> </el-table-column>
-                               <el-table-column prop="index" label="序号"  align="center">
-                                    <template slot-scope="scope">
-                                        {{scope.$index+1}} 
-                                  </template>
-                                </el-table-column>
-                               <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
-                               <el-table-column label="操作" min-width="100" align="center" >
-                                <template slot-scope="scope">
-                                  <!--<el-button :icon="el_icon_star=scope.row.star?'el-icon-star-on':'el-icon-star-off'"
-                                   circle :type="scope.row.star?'success':''" plain
-                                  @click="payAttentionTo(scope.row.projectName,scope.row.star)">
-                                  </el-button>
-                                  <el-button icon="el-icon-setting" circle plain
-                                  @click="getRepositoryOf(scope.row.projectName);dialogTableVisible = true">
-                                  </el-button>
-                                    -->
-                                     <span style="font-size: medium;">
-                                       <el-link icon="el-icon-edit"  style="font-size: 12px" @click="viewMore(scope.row.code)">详细</el-link>&nbsp;
-                                     
-                                    </span>
-
-                                 </template>
-
-
-                              </el-table-column>
-                             </el-table>
-                             <!-- <el-pagination style="text-align: center"
-                                     :current-page.sync="curPage"
-                                     :page-size="pagesize"
-                                     :pager-count="17"
-                                     :total="fuzzy.length"
-                                     background
-                                     layout="total, prev, pager, next, jumper">
-                               </el-pagination>-->
-                               
-                            </div>
-                            </div>
-                            </el-col>
-                            
-                            </el-row>
-                           </el-collapse-item >
-                           <br>
-                           <el-collapse-item title="服务元数据特征 " name="2">
-                            <el-row type="flex" :gutter="50" >
-                            
-                              <el-col>   
-                              <div class="panel panel-danger" style="background-color: rgb(240,222,237);">
-                              <div class="panel-heading" style="text-align: center">元数据特征选择</div>
-                              <div class="panel-body">
-                              <el-table max-height="300"   :data="datasInfos"   @selection-change="handleSelectionChange1"   >
-                                  
-                               <el-table-column label="操作" min-width="100" align="center"   type="selection"  :reserver-selection="true"> </el-table-column>
-                               <el-table-column prop="index" label="序号"  align="center">
-                                    <template slot-scope="scope">
-                                        {{scope.$index+1}} 
-                                  </template>
-                                </el-table-column>
-                               <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
-                               <el-table-column label="操作" min-width="100" align="center" >
-                                <template slot-scope="scope">
-                                  <!--<el-button :icon="el_icon_star=scope.row.star?'el-icon-star-on':'el-icon-star-off'"
-                                   circle :type="scope.row.star?'success':''" plain
-                                  @click="payAttentionTo(scope.row.projectName,scope.row.star)">
-                                  </el-button>
-                                  <el-button icon="el-icon-setting" circle plain
-                                  @click="getRepositoryOf(scope.row.projectName);dialogTableVisible = true">
-                                  </el-button>
-                                    -->
-                                     <span style="font-size: medium;">
-                                       <el-link icon="el-icon-edit"  style="font-size: 12px" @click="viewMore(scope.row.code)">详细</el-link>&nbsp;
-                                     
-                                    </span>
-
-                                 </template>
-
-
-                              </el-table-column>
-                             </el-table>
-                          <!--   <el-pagination style="text-align: center"
-                                     :current-page.sync="curPage"
-                                     :page-size="pagesize"
-                                     :pager-count="17"
-                                     :total="fuzzyd.length"
-                                     background
-                                     layout="total, prev, pager, next, jumper">
-                               </el-pagination> -->
-                              </div>
-                            </div>
-                            </el-col>
-                        </el-row> 
-                        </el-collapse-item >
-                          <br>
-                     </el-collapse>
-  
-                            <span style="float: right">
+                       
+                         
+                             <span style="float: right">
                              <el-button @click="nextClick">
                               <i class="el-icon-edit"></i>下一步
                               </el-button>
                               </span><br><br>
-                       </div>                            
+                                                 
                       </div>    
                     </div>
               
@@ -189,7 +95,7 @@
                                                            action=""
                                                            :on-preview="handlePreview"
                                                            :on-remove="handleRemove"
-                                                           :before-upload="beforeAvatarUpload"
+                                                         
                                                            :before-remove="beforeRemove"
                                                            :on-change="handleChangeInter"
                                                            :on-error="uploadOnError"
@@ -197,6 +103,7 @@
                                                             multiple
                                                             :limit="1" 
                                                             :on-exceed="handleExceed"
+                                                            :before-upload="beforeAvatarUpload"
                                                             :file-list2="fileList"
                                                             :show-file-list="true"                                        
                                                             :auto-upload="false"     
@@ -254,7 +161,7 @@
                                                            class="upload-demo"
                                                            action="https://jsonplaceholder.typicode.com/posts/"
                                                            :on-preview="handlePreview"
-                                                            :before-upload="beforeAvatarUpload"
+                                                           :before-upload="beforeAvatarUpload"
                                                            :on-remove="handleRemove"
                                                            :before-remove="beforeRemove"
                                                             :on-change="handleChangeReg"
@@ -283,19 +190,15 @@
 
                                     <el-row type="flex" :gutter="50">                                  
                                       <el-col :span="24">   
-                                       <span style="float: right">
-                                        <el-button @click="cancelClick">
-                                          <i class="el-icon-edit"></i>取消
-                                          </el-button>
-                                          </span>
+                                      
 
-                                          <span style="float: right">
-                                          <el-button @click="taskCreat">
-                                          <i class="el-icon-edit"></i>任务创建
+                                          <span  style="float: right">
+                                          <el-button  :disabled="isAble" @click="taskCreat">
+                                          <i class="el-icon-edit"></i>提交验证任务
                                           </el-button>
                                           </span>  
 
-                                          <span style="float: right">
+                                          <span style="float: left">
                                           <el-button @click="perClick">
                                           <i class="el-icon-edit"></i>上一步
                                           </el-button>
@@ -420,6 +323,7 @@
 import logo from '@/components/logo'
 import testCaseNavBar from '@/components/taskManage/testCaseNavBar'
 import leftBar from '@/components/leftBar'
+import characterList from '@/components/taskManage/verifyPerform/characterList'
 import {Message} from 'element-ui'
 
 export default 
@@ -427,7 +331,12 @@ export default
      name: "ProjectList",
      data: function () {
       return {
-        show:false,
+      
+        isAble : false,
+        show:false,   
+        listname:[],
+        servicename:'',
+        dataname:'',
          taskInfo: 
             {
               taskName: '',     
@@ -442,8 +351,11 @@ export default
           servicesInfos: [],//服务命名特征
           datasInfos: [],//服务数据列表
          activeNames: ['1'],//折叠框默认展开1
-
-        
+        testoptionList:["服务命名特征","元数据特征"],
+        newProcedure:[],
+        buttonlists:[],
+        list:[],
+        multipLists:[],
         value:'',    
         options:[],
         loading_top: null,
@@ -464,10 +376,13 @@ export default
     }, 
      mounted() {//用来向后端发起请求拿到数据以后做一些业务处理
       //this.loadStarProjects();
-      this.loadAllProjects();
+    //  this.loadAllProjects();
     },
      created() {
        //初始化数据
+       this.listname=[];
+       this.buttonlists=[];
+       this.multipLists=[],
        this.taskInfo = 
            {
               taskName: '',  
@@ -482,9 +397,8 @@ export default
               
              this.servicesInfos=[];
             this.datasInfos=[];
-       
+        this.newProcedure=[],
      this.loadAllProjects();  
-   // this.$refs.multipleTable.toggleAllSelection();//默认全选
      this.fileList=[];
      
       },
@@ -524,9 +438,66 @@ export default
     },
     methods: 
     {
+      getChri(mm){
+        //this.multipleSelection=[];
+         this.multipleSelection=mm;
+        // this.multipLists=[];
+       
+                 for( var i=0;i<this.multipleSelection.length;i++){
+                      this.multipLists.push(this.multipleSelection[i].code);//添加元数据列表id
+                  }
 
+                  for( var i=0;i<this.multipLists.length;i++){
+                      console.log("===="+this.multipLists[i]);//添加元数据列表id
+                  }
 
+             
+ 
+        
+       //  console.log(mm);
+      },
+        
+       
+      getDetail(index,item)
+      {
+        //alert(index);
+              console.log("item="+item+"index="+index)
+              let obj = this.loadlistsbybutton(item);
+              this.newProcedure.push(obj);
+              this.listname.push(item);
+              console.log("================");
+              console.log( this.newProcedure); 
+              document.getElementById(index).style.background="lightskyblue";
+              document.getElementById(index).style.color="black";
+              document.getElementById(index).setAttribute("disabled", true);   
+             
+       /* if(index===0){
+         
+              var obj = this.servicesInfos;
+              this.newProcedure.push(obj);
+              this.listname.push(this.servicename);
+              console.log("================");
+              console.log( this.newProcedure); 
+              document.getElementById(index).style.background="lightskyblue";
+              document.getElementById(index).style.color="black";
+              document.getElementById(index).setAttribute("disabled", true);    
+            
+        }else{
+
+             document.getElementById(index).style.color="white";
+               var objj = this.datasInfos;
+               this.newProcedure.push(objj);
+               this.listname.push(this.dataname);
+               console.log("++++++++++");
+              console.log( this.newProcedure);
+              document.getElementById(index).style.background="lightskyblue"
+              document.getElementById(index).setAttribute("disabled", true);
+              // this.buttonType(index);
+        }*/
           
+         
+      },
+               
       toggleSelection(rows) {
         if (rows) {
            rows.forEach(row => {
@@ -537,7 +508,7 @@ export default
         }
       },
 
-      handleSelectionChange(val) {
+     /* handleSelectionChange(val) {
         this.multipleSelection=val;
      
       },
@@ -546,6 +517,52 @@ export default
           this.multipleSelectiondata=val;
     
        
+      },*/
+                        loadlistsbybutton(item){
+                        // alert(this.buttonlists);
+                         var items='';
+                     
+                         this.buttonlists=[];
+                            if(item=="服务命名特征"){
+                                items="服务命名符合性验证";
+                               // alert(items)
+                            }else{
+                             
+                              items="服务元数据符合性验证";
+                            }    
+                         this.$axios.get('../static/descFile_0330.json')
+                          .then(res =>{
+                        
+                            for(var i=0;i<res.data.module.length;i++)
+                            {
+                                
+                                if (res.data.module[i].name==items){
+                                  console.log("1");
+                                  let categoryList= res.data.module[i].categoryList;
+                               
+                                  for(let j=0;j<categoryList.length;j++){
+                                     
+                                     let indicatorList= categoryList[j].indicatorList;
+                                      
+                                       for(let l=0;l<indicatorList.length;l++){
+                                         let characteristicsList=indicatorList[l].characteristicsList;
+                                         for(let m=0;m<characteristicsList.length;m++){                                           
+                                             this.buttonlists.push({code:characteristicsList[m].id,describe:characteristicsList[m].desc});
+                                            // console.log("characteristicsList[m].id"+characteristicsList[m].id);
+                                          }       
+                                       }                                    
+                                  }
+                                 
+                                
+                                                     
+                                }
+                            }
+                     
+                          })
+                          .catch(err=>{console.log("error is"+err)}
+                          )
+                   return  this.buttonlists;                            
+             
       },
 
       handleRemove(file, fileList) {
@@ -561,8 +578,8 @@ export default
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
 
-        beforeAvatarUpload(file) {
-
+      beforeAvatarUpload(file) {
+     
            var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)   
                     const isxml = testmsg === 'xml'     
               if (!isxml) {
@@ -574,25 +591,33 @@ export default
      
      
      handleChangeInter(file, fileList) {
-     
-     
+       const flag=this.beforeAvatarUpload(file);
+       if(flag===true){
        this.fileList=fileList;
-      
-       this.taskInfo.descFile.interfaceFile=file.raw;
-     
+       this.taskInfo.descFile.interfaceFile=file.raw;  
        this.fileList=[];
+       }else{
+         this.$refs.upload1.clearFiles();
+       }
      
       },
 
 
        handleChangeSec(file, fileList) {
+          const flag=this.beforeAvatarUpload(file);
+            if(flag===true){
           this.fileList=fileList;
       
            this.taskInfo.descFile.sectionFile=file.raw;
         this.fileList=[];
+         }else{
+         this.$refs.upload2.clearFiles();
+       }
        
       },
        handleChangeReg(file, fileList) {
+           const flag=this.beforeAvatarUpload(file);
+            if(flag===true){
         this.fileList=fileList;
           // let formData = new window.FormData();
           // formData.append('file', file);
@@ -600,7 +625,9 @@ export default
        // this.taskInfo.descFile.registerFile=fileList.slice(-3)[0].name;;
       
         this.fileList=[];
-       
+         }else{
+         this.$refs.upload.clearFiles();
+       }
       },
       uploadOnError(){
        this.$message.warning("文件上传失败,请重新操作");
@@ -636,7 +663,8 @@ export default
                                             // console.log("characteristicsList[m].id"+characteristicsList[m].id);
                                           }       
                                        }                                    
-                                  }                                  
+                                  }
+                                  this.servicename="服务命名特征项";                                  
                                 }else if(res.data.module[i].name=="服务元数据符合性验证"){
                                    
                                   let categoryList= res.data.module[i].categoryList;
@@ -653,10 +681,10 @@ export default
                                           }       
                                        }                                    
                                   }    
-
+                                   this.dataname="元数据命名特征项";  
                                 }
                             }
-                              
+                         
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )
@@ -679,21 +707,36 @@ export default
             {
               this.taskInfo.characteristic=[];
               var namenn=this.taskInfo.taskName;//任务名称
-            
+              
               if(this.taskInfo.taskName=="undefined" || this.taskInfo.taskName=='' || this.taskInfo.taskName==null)//判断任务名称是否为空
               {
-             
+            
                 return  Message.error({message: "任务名称不能为空"});
+              
               }
               else //执行请求
               {  
+                 this.isAble=true;
                
-               for( var i=0;i<this.multipleSelection.length;i++){
-                    this.taskInfo.characteristic.push(this.multipleSelection[i].code);//添加命名特征列表id
+                  var arr=[];
+                  console.log(" this.multipLists.length:"+ this.multipLists.length);
+                for (var i = 0; i < this.multipLists.length; i++) {
+                  for (var j = i+1; j <  this.multipLists.length; j++) {
+                   if(this.multipLists[i]===this.multipLists[j]){
+                     ++i;
+                       }
+                      }
+                  arr.push(this.multipLists[i]);
+                 }
+                 this.multipLists=[];
+                this.multipLists=arr;
+
+               for( var i=0;i<this.multipLists.length;i++){
+                    this.taskInfo.characteristic.push(this.multipLists[i]);//添加命名特征列表id
                 }
-                for( var i=0;i<this.multipleSelectiondata.length;i++){
-                    this.taskInfo.characteristic.push(this.multipleSelectiondata[i].code);//添加元数据列表id
-                }
+                // for( var i=0;i<this.multipleSelectiondata.length;i++){
+                //     this.taskInfo.characteristic.push(this.multipleSelectiondata[i].code);//添加元数据列表id
+                // }
 
                 
                // var finalObj = JSON.stringify(this.taskInfo);//封装成json传输到后台
@@ -713,28 +756,30 @@ export default
                     header: {
                          'Content-Type': 'multipart/form-data'
                     }
-                 }).then(resp => { 
+                }).then(resp => { 
                    console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
-                 if (resp && resp.data){
-                  if ("success" == resp.data.result) {
-                   console.log("resp.data.result="+resp.data.result);
-                    this.$message.warning("验证成功");
-                    
+                    if (resp && resp.data){
+                    if ("success" == resp.data.result) {
+                    console.log("resp.data.result="+resp.data.result);
+                    this.$message.warning("验证成功,即将跳转到任务监控界面");
+                    this.$router.push("/missionControlInfo");
                    } else {
                     if("Invaild File" == resp.data.reason){ 
 
                        this.$alert('文件格式错误', '提示', {
                      dangerouslyUseHTMLString: true
                       });
-                  
+                    this.isAble=false;
                     }else{
-                        Message.error({message: "验证失败"})
+                        Message.error({message: "验证失败"});
+                           this.isAble=false;
                     }
                     }
                     }else{
                      this.$alert('服务器返回错误', '提示', {
                      dangerouslyUseHTMLString: true
                       });
+                         this.isAble=false;
                     }
                   }).catch(err => {                 //请求失败后的处理函数   
                       console.log(err)
@@ -746,6 +791,7 @@ export default
              
              //清空文件列表
                 this.fileList= []; 
+                
               /*  this.taskInfo = 
                 {
                   taskName: '',  
@@ -805,14 +851,12 @@ export default
             //this.$router.push({name: "dataInfoImport", params: {datasetAbout: dataset}});
         },
         handleChange(val) {
-          5749+2210
-          26+10+2.8
         console.log(val);
       },
 
             
     },    
-    components: { logo,testCaseNavBar},
+    components: { logo,testCaseNavBar,characterList},
   }
 </script>
 

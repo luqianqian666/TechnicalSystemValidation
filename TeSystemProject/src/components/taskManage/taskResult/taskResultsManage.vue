@@ -62,7 +62,7 @@
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">                               
                                      <span style="font-size: medium;">
-                                       <el-link icon="el-icon-download"  style="font-size: 12px" @click="viewMore(scope.row.code)">导出</el-link>&nbsp;                                    
+                                       <el-link icon="el-icon-download"  style="font-size: 12px" @click="download(scope.row.code)">导出</el-link>&nbsp;                                    
                                     </span>
                                  </template>
                               </el-table-column>
@@ -74,7 +74,7 @@
                             </el-row >
                             <br>       
                              <span style="float: right">
-                             <el-button @click="upClick">
+                             <el-button @click="downloadforlist">
                               <i class="el-icon-download"></i>批量导出
                               </el-button>
                               </span>
@@ -155,7 +155,7 @@
                              </el-table>    
                              <br>       
                              <span style="float: right">
-                             <el-button @click="upClick">
+                             <el-button @click="downloadforlist">
                               <i class="el-icon-edit"></i>批量导出
                               </el-button>
                               </span><br><br>            
@@ -246,7 +246,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
      mounted() {//用来向后端发起请求拿到数据以后做一些业务处理
      
    
-      this.loadAllProjects();
+     
       this.$nextTick(function() {
            
             this.drawLine('testingRequirements');
@@ -272,6 +272,37 @@ import echartsLiquidfill from 'echarts-liquidfill'
         this.multipleSelection=val;
      
       },
+
+      download(obj){
+       
+          this.exportRecord(obj);
+         
+      },
+      downloadforlist(){
+        for(var i = 0; i < this.multipleSelection.length; i ++) {
+                this.exportRecord( this.multipleSelection[i].code)
+            }
+      },
+      exportRecord(testcase) {
+                this.$axios.post('/testReport/download',
+                this.qs.stringify({
+                    caseId: testcase
+                }),
+                {
+                    header: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                    }
+            }).then(resp => {                   //请求成功后的处理函数   
+                let url = window.URL.createObjectURL(new Blob([resp.data]))
+                let a = document.createElement('a')
+                a.setAttribute("download",testcase+".doc")
+                a.href = url
+                a.click();
+            }).catch(err => {                 //请求失败后的处理函数   
+                console.log(err)
+            })
+        },
+
       viewMore(){},
          getTaskNameList(){
          
