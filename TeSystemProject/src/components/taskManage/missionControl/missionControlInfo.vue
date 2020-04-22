@@ -53,17 +53,17 @@
                                      :data="fuzzy.slice((curPage-1)*pagesize,curPage*pagesize)"
                                       border
                                       ref="multipleTable"
-                                       max-height="550" 
+                                       max-height="650" 
                                       >
-                                      <el-table-column prop="index" label="序号"  align="center">
+                                     <!-- <el-table-column prop="index" label="序号"  align="center">
                                        <template slot-scope="scope">
                                         {{scope.$index+1}} 
                                       </template>
-                                      </el-table-column>
+                                      </el-table-column>-->
                                       <el-table-column
                                           prop="code"
                                           label="任务编号"
-                                          width="150" 
+                                          width="100" 
                                           align="center"
                                           header-align="center"
                                       >  
@@ -75,25 +75,11 @@
                                           header-align="center"
                                       >  
                                       </el-table-column>
-                                      <el-table-column
-                                          prop="peried"
-                                          label="验证阶段"
-                                          class="ccc"
-                                           align="center"
-                                         
-                                          header-align="center"
-                                        
-                                      >
-                                          <template slot-scope="scope">
-                                              <div style="white-space: pre-line;">
-                                                  <span>{{formatSoftwareCode(scope.row.software)}}</span>
-                                              </div>
-                                          </template>
-                                      </el-table-column>
+                                     
                                       <el-table-column
                                           prop="status"
                                           label="状态"
-                                          width="100" 
+                                          width="150" 
                                           align="center"
                                         
                                       >
@@ -105,7 +91,7 @@
                                           sortable
                                           prop="startingTime"
                                           label="开始时间"
-                                          width="200" 
+                                          width="180" 
                                           align="center"
                                           :filters="dateFilters"
                                           :filter-method="filterSoftwareCodeHandler"
@@ -119,20 +105,20 @@
                                       <el-table-column
                                           sortable
                                           prop="endtingTime"
-                                          label="结束时间"
-                                          width="200" 
+                                          label="更新时间"
+                                          width="180" 
                                           align="center"
                                           :filters="dateFilters"
                                           :filter-method="filterSoftwareCodeHandler"
                                       >
                                           <template slot-scope="scope">
-                                              {{formatDate(scope.row.startingTime)}}
+                                              {{formatDate(scope.row.endtingTime)}}
                                           </template>
                                       </el-table-column>
                                       <el-table-column
                                           label="详情"
                                           align="center"
-                                          width="100"
+                                          width="80"
                                       > 
                                           <template slot-scope="scope"> 
                                               <!-- <el-dropdown>
@@ -179,7 +165,7 @@ export default {
         start_time:'',
         end_time:'',
         time_type:'',
-        pagesize: 7,
+        pagesize: 15,
         curPage: 1,
         search: '',
         dateFilters:[]
@@ -205,7 +191,9 @@ export default {
     },
     computed: {
       global_url() {
-         return config.global_url;
+
+        return config.getTaskMission();
+
       },
       // 模糊搜索
       fuzzy() {
@@ -242,35 +230,44 @@ export default {
       /*加载所有项目*/
       loadAllProjects() 
       {
-          this.$axios.get('../static/descFile_0330.json')
-                          .then(res =>{
-                        
-                            for(var i=0;i<res.data.module.length;i++)
-                            {
-                                if(res.data.module[i].name=="服务元数据符合性验证"){
-                                  let categoryList= res.data.module[i].categoryList;
-                                
-                                  for(let j=0;j<categoryList.length;j++){
-                                     
-                                     let indicatorList= categoryList[j].indicatorList;
-                                      console.log(indicatorList);
-                                       for(let l=0;l<indicatorList.length;l++){
-                                         let characteristicsList=indicatorList[l].characteristicsList;
-                                         for(let m=0;m<characteristicsList.length;m++){                                           
-                                             this.testCases.push({code:characteristicsList[m].id,name:characteristicsList[m].desc,peried:characteristicsList[m].checkPoint,status:characteristicsList[m].checkProperty,startingTime:"2020-3-1",enddingTime:"2020-4-1"});
-                                           
-                                            // console.log("characteristicsList[m].id"+characteristicsList[m].id);
-                                          }       
-                                       }                                    
-                                  }    
-
-                                }
-                            }
+          this.$axios.get(this.global_url)
+                          .then(resp =>{
+                                   //请求成功后的处理函数   
+                    if (resp && resp.data){
+                        console.log(resp.data.content);
+                        var contents=resp.data.content;
+                        for(var m=0;m<contents.length;m++){
+                        var currenttime= this.getDateStr(contents[m].updateTime);
+                        var currentcreat= this.getDateStr(contents[m].createTime);
+                        this.testCases.push({code:contents[m].task.id,name:contents[m].task.name,status:contents[m].testStatus,startingTime:currentcreat,endtingTime:currenttime});                                
+                        }
+                   
+                    }else{
+                     this.$alert('服务器返回错误', '提示', {
+                     dangerouslyUseHTMLString: true
+                      });
+                         this.isAble=false;
+                     }
+  
                               
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )
       },
+      
+      getDateStr(seconds) {
+        var date = new Date(seconds)
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+        var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        var currentTime = year + "-" + month + "-" + day +"   "+ hour + ":" + minute + ":" + second;
+        return currentTime
+      },
+
        
          viewMore(obj) {
             //alert("obj="+obj);

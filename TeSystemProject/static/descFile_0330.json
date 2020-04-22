@@ -14,7 +14,7 @@
 				"name": "接口契约命名规范指标",
 				"charName": "interface contract naming specification",
 				"characteristicsList": [{
-					"id": 10,
+					"id": 1,
 					"checkPoint": "interfaceContractName",
 					"checkProperty": null,
 					"checkFile": null,
@@ -35,7 +35,7 @@
 					"ruleFile": null,
 					"ruleCode": null
 				}, {
-					"id": 20,
+					"id": 2,
 					"checkPoint": "interfaceContractName",
 					"checkProperty": null,
 					"checkFile": null,
