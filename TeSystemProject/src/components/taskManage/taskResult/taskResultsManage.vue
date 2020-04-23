@@ -57,8 +57,9 @@
                                         {{scope.$index+1}} 
                                   </template>
                                 </el-table-column>
-                               <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="任务名称" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column label="编号"   prop="code"  min-width="100" align="center" v-if="show"></el-table-column>
+                               <el-table-column prop="describe" label="任务名称" min-width="200" align="center" :show-overflow-tooltip="true"></el-table-column>
+                                <el-table-column prop="status" label="验证结果" min-width="100" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">                               
                                      <span style="font-size: medium;">
@@ -183,7 +184,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
         start_time:'',
         end_time:'',
         time_type:'',
-          pagesize: 7,
+        pagesize: 15,
         curPage: 1,
         search: '',
         table: false,
@@ -211,10 +212,10 @@ import echartsLiquidfill from 'echarts-liquidfill'
       
     },
 
-     computed: {
-      global_url() {
-     
-       return config.global_url;
+       computed: {
+        global_url() {
+
+        return config.getTaskMission();
 
       },
       // 模糊搜索
@@ -286,7 +287,14 @@ import echartsLiquidfill from 'echarts-liquidfill'
             }
       },
       exportRecord(testcase) {
-                this.$axios.post('/testReport/download',
+
+                let url = window.URL.createObjectURL(new Blob(["aaaaaaaaaaaaaa"]))
+                let a = document.createElement('a')
+                a.setAttribute("download",testcase+".doc")
+                a.href = url
+                a.click();
+
+              /*  this.$axios.post('/testReport/download',
                 this.qs.stringify({
                     caseId: testcase
                 }),
@@ -302,7 +310,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                 a.click();
             }).catch(err => {                 //请求失败后的处理函数   
                 console.log(err)
-            })
+            })*/
         },
 
       viewMore(){},
@@ -323,41 +331,57 @@ import echartsLiquidfill from 'echarts-liquidfill'
             else
                 return "color: #ccc;width:" + width + "%";
         },
-        loadAllProjects() {
-                       let url = this.global_url + 'reviewdetail?' +  '&' + new Date().getTime();
-                       console.log("url="+url);
-                           this.$axios.get('../static/descFile_0330.json')
-                          .then(res =>{
-                        
-                            for(var i=0;i<res.data.module.length;i++)
-                            {
-                                 
-                                if (res.data.module[i].name=="服务命名符合性验证"){
-                               
-                                  let categoryList= res.data.module[i].categoryList;
-                               
-                                  for(let j=0;j<categoryList.length;j++){
-                                     
-                                     let indicatorList= categoryList[j].indicatorList;
-                                      
-                                       for(let l=0;l<indicatorList.length;l++){
-                                         let characteristicsList=indicatorList[l].characteristicsList;
-                                         for(let m=0;m<characteristicsList.length;m++){
-                                         //   console.log("characteristicsList[m].id"+characteristicsList[m].id);                                           
-                                             this.servicesInfos.push({code:characteristicsList[m].id,describe:characteristicsList[m].desc});
-                                            
-                                          }       
-                                       }                                    
-                                  }                                  
-                                }
+        /*加载所有任务*/
+      loadAllProjects() 
+      {
+          this.$axios.get(this.global_url,this.qs.stringify({page:this.curPage,size:this.pagesize }))
+                          .then(resp =>{
+                                   //请求成功后的处理函数   
+                    if (resp && resp.data){
+                        console.log(resp.data.content);
+                        var contents=resp.data.content;
+                         for(var m=0;m<contents.length;m++){
+                            if(contents[m].updateTime==null){
+                                    var currenttime= "";
+                            }else{
+                                var currenttime= this.getDateStr(contents[m].updateTime);
                             }
-                             // console.log(this.servicesInfos);
+                             if(contents[m].createTime==null){
+                                    var currentcreat= "";
+                            }else{
+                               var currentcreat= this.getDateStr(contents[m].createTime);
+                            }
+                        this.servicesInfos.push({code:contents[m].task.id,describe:contents[m].task.name,status:"验证成功"});                                
+                        }
+                        this.totalcount = resp.data.totalElements;
+                     
+                   
+                    }else{
+                     this.$alert('服务器返回错误', '提示', {
+                     dangerouslyUseHTMLString: true
+                      });
+                         this.isAble=false;
+                     }
+  
+                              
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )
-                                              
-     
-                },
+                
+      },
+          
+      getDateStr(seconds) {
+        var date = new Date(seconds)
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+        var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        var currentTime = year + "-" + month + "-" + day +"   "+ hour + ":" + minute + ":" + second;
+        return currentTime
+      },
      
        upClick(){},
 

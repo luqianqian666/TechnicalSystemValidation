@@ -10,7 +10,9 @@
       router
       @select="handleSelect"
       >
-      
+       <el-menu-item index="/standardManage" >
+          标准管理
+      </el-menu-item>
       <el-menu-item index="/taskBaseInfo"  >
           验证执行
       </el-menu-item>

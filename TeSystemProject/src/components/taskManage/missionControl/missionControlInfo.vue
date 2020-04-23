@@ -54,6 +54,7 @@
                                       border
                                       ref="multipleTable"
                                        max-height="650" 
+                                      :row-class-name="tableRowClassName"
                                       >
                                      <!-- <el-table-column prop="index" label="序号"  align="center">
                                        <template slot-scope="scope">
@@ -141,7 +142,8 @@
                                             :current-page.sync="curPage"
                                             :page-size="pagesize"
                                             :pager-count="17"
-                                            :total="fuzzy.length"
+                                            :total="totalcount"
+                                            @current-change="handleCurrentChange"
                                             background
                                             layout="total, prev, pager, next, jumper">
                                       </el-pagination>
@@ -168,7 +170,9 @@ export default {
         pagesize: 15,
         curPage: 1,
         search: '',
-        dateFilters:[]
+        totalcount:0,
+        dateFilters:[],
+        multipleTable:[]
       }
     }, 
    /* props: ['testCases'],
@@ -180,7 +184,7 @@ export default {
     },
 */
     created(){
-       this.time_type = '2';//默认状态按照已完成查询
+         this.time_type = '2';//默认状态按照已完成查询
         // this.tasknameSearch='';
          this.getTaskNameList();
          this.loadAllProjects();
@@ -190,7 +194,7 @@ export default {
       
     },
     computed: {
-      global_url() {
+        global_url() {
 
         return config.getTaskMission();
 
@@ -227,20 +231,37 @@ export default {
   
     methods: 
     {
+        tableRowClassName({row, rowIndex}) {
+        if (rowIndex === 0) {
+          return 'warning-row';
+        } 
+        return '';
+      },
+    
       /*加载所有项目*/
       loadAllProjects() 
       {
-          this.$axios.get(this.global_url)
+          this.$axios.get(this.global_url,this.qs.stringify({page:this.curPage,size:this.pagesize }))
                           .then(resp =>{
                                    //请求成功后的处理函数   
                     if (resp && resp.data){
                         console.log(resp.data.content);
                         var contents=resp.data.content;
-                        for(var m=0;m<contents.length;m++){
-                        var currenttime= this.getDateStr(contents[m].updateTime);
-                        var currentcreat= this.getDateStr(contents[m].createTime);
+                         for(var m=0;m<contents.length;m++){
+                            if(contents[m].updateTime==null){
+                                    var currenttime= "";
+                            }else{
+                                var currenttime= this.getDateStr(contents[m].updateTime);
+                            }
+                             if(contents[m].createTime==null){
+                                    var currentcreat= "";
+                            }else{
+                               var currentcreat= this.getDateStr(contents[m].createTime);
+                            }
                         this.testCases.push({code:contents[m].task.id,name:contents[m].task.name,status:contents[m].testStatus,startingTime:currentcreat,endtingTime:currenttime});                                
                         }
+                        this.totalcount = resp.data.totalElements;
+                     
                    
                     }else{
                      this.$alert('服务器返回错误', '提示', {
@@ -253,6 +274,15 @@ export default {
                           })
                           .catch(err=>{console.log("error is"+err)}
                           )
+                 console.log("1111111111111");
+                     console.log(this.testCases);   
+      },
+       
+       handleCurrentChange(page) {
+
+        this.curPage = page;
+        this.loadAllProjects();
+
       },
       
       getDateStr(seconds) {
@@ -397,6 +427,9 @@ export default {
         float: left;
         margin:100px 0 0 100px；
     }
+     .el-table .warning-row {
+    background: yellow;
+  } 
    
      .taskName {
         min-height: 45px;

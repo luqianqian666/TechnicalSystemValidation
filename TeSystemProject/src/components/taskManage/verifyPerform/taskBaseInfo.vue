@@ -193,7 +193,7 @@
                                       
 
                                           <span  style="float: right">
-                                          <el-button  :disabled="isAble" @click="taskCreat">
+                                          <el-button  :disabled="isAble" @click="taskCreat"   element-loading-text="验证已提交，正在跳转到验证监控页面" v-loading.fullscreen.lock="fullscreenLoading">
                                           <i class="el-icon-edit"></i>提交验证任务
                                           </el-button>
                                           </span>  
@@ -331,7 +331,7 @@ export default
      name: "ProjectList",
      data: function () {
       return {
-      
+      fullscreenLoading: false,
         isAble : false,
         show:false,   
         listname:[],
@@ -439,7 +439,7 @@ export default
     },
      computed: {
        global_url() {
-        return config.global_url;
+        return config.getTaskUrl();
       }
     },
     methods: 
@@ -762,15 +762,20 @@ export default
                this.$axios.post(this.global_url,formData,
                 {
                     header: {
-                         'Content-Type': 'multipart/form-data'
+                         'Content-Type': 'multipart/form-data;charset=UTF-8'
                     }
                 }).then(resp => { 
                    console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
                     if (resp && resp.data){
                     if ("success" == resp.data.result) {
                     console.log("resp.data.result="+resp.data.result);
-                    this.$message.warning("验证成功,即将跳转到任务监控界面");
+                    
+                    this.fullscreenLoading = true;
+                    setTimeout(() => {
+                    this.fullscreenLoading = false;
                     this.$router.push("/missionControlInfo");
+                    }, 2000);
+                   
                    } else {
                     if("Invaild File" == resp.data.reason){ 
 

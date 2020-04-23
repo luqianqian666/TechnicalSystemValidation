@@ -28,7 +28,7 @@
         </el-col>
         <el-col :span="21">
             <div class="grid-content bg-purple">
-                <el-input v-model="caseAbout.peried" placeholder="请输入测试用例名称"></el-input>
+                <el-input v-model="caseAbout.peried" placeholder="请输入任务所处阶段"></el-input>
             </div>
         </el-col>
 
