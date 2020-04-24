@@ -52,19 +52,20 @@
                       <div id="filter_box" class="pull-right">
                         <span class="baseTitle">验证项选择</span><br><br>
                         <br>
-                        
+                         <el-row>
                         <div >
                         
                            <span  style="float: left" ref="addbutton" >
-                            <el-button style="margin-right:10px; width:130px"   :key="index" v-for="(item,index) in testoptionList"  :id="index"  @click="getDetail(index,item)">{{item}}</el-button>
+                            <el-button style="margin-right:10px; width:130px" :style="{backgroundColor: colors[showList[key] ? 2 : buttonMode[key]]}"   :key="key" v-for="(value,key) in characterListObject"   @click="getDetail(key,value)">{{value}}</el-button>
                             </span> 
                             
-                             <div v-for="(item,index) in newProcedure" :key="'info2-'+index"  >                         
-                               <characterList v-bind:tableData="item" v-bind:ListName="listname[index]" @transferChri="getChri"> </characterList>
+                             <div v-for="(value,key) in characterListObject" :key="'info2-'+key" v-show="showList[key]"  >                         
+                               <characterList v-bind:tableData="characterListsObject[key]" v-bind:ListName="value" @transferChri="getChri($event, key)"> </characterList>
                              </div>
                            
                         </div>
-                      
+                       </el-row>
+                       <br> <br>
                         <div style="margin-bottom: 30px; ">
                        
                          
@@ -331,13 +332,16 @@ export default
      name: "ProjectList",
      data: function () {
       return {
+        buttonMode: {},
+        colors: ['red', 'blue', 'yellow'],
+        showList: {},
       fullscreenLoading: false,
         isAble : false,
         show:false,   
         listname:[],
         servicename:'',
         dataname:'',
-         taskInfo: 
+        taskInfo: 
             {
               taskName: '',     
               descFile:
@@ -366,11 +370,14 @@ export default
         multipleSelectiondata:[],//元数据特征
         fileList: [],//接收el-upload返回的file-list
         loading_bottom: null,
-        pagesize: 5,
+        pagesize: 100,
         curPage: 1,
        // search: '',
         // 项目对应的多个任务的对话框，内置了表格
         dialogTableVisible: false,
+        characterListObject:{},
+        characterListsObject:{},
+        characterLists:[],
        
       
       }
@@ -381,6 +388,9 @@ export default
     },
      created() {
        //初始化数据
+       this.characterListObject={};
+       this.characterListsObject={};
+       this.characterLists=[];
        this.listname=[];
        this.buttonlists=[];
        this.multipLists=[],
@@ -396,87 +406,61 @@ export default
               characteristic:[]               
             },
               
-             this.servicesInfos=[];
-            this.datasInfos=[];
-        this.newProcedure=[],
-     this.loadAllProjects();  
+     this.servicesInfos=[];
+     this.datasInfos=[];
+     this.newProcedure=[],
+    // this.loadAllProjects(); 
+     this.loadAllcharacteristics();  
      this.fileList=[];
      
       },
-    computed: //赋值
-    {
-        global_url() {
-        return config.getTaskUrl();
-      },
-     /* 
-      // 模糊搜索
-   /*   fuzzy() {
-        const search = this.search;
-        if (search) {
-          // filter() 方法创建一个新的数组，
-          // 新数组中的元素是通过检查指定数组中符合条件的所有元素。
-          // 注意： filter() 不会对空数组进行检测。
-          // 注意： filter() 不会改变原始数组。
-        
-          return this.servicesInfos.filter(data => {
-            // some() 方法用于检测数组中的元素是否满足指定条件;
-            // some() 方法会依次执行数组的每个元素：
-            // 如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测;
-            // 如果没有满足条件的元素，则返回false。
-            // 注意： some() 不会对空数组进行检测。
-            // 注意： some() 不会改变原始数组。
-            return Object.keys(data).some(key => {
-              // indexOf() 返回某个指定的字符在某个字符串中首次出现的位置，如果没有找到就返回-1；
-              // 该方法对大小写敏感！所以之前需要toLowerCase()方法将所有查询到内容变为小写。
-              return String(data[key]).indexOf(search) > -1
-            })
-          })
-        }
-        return this.servicesInfos;
-      },*/
-
-    
-    },
+  
      computed: {
        global_url() {
         return config.getTaskUrl();
-      }
+      },
+       global_characteristic() {
+        return config.getTaskCharacteristic();
+      },
     },
     methods: 
     {
 
-      getChri(mm){
+      getChri(mm, key){
         //this.multipleSelection=[];
          this.multipleSelection=mm;
         // this.multipLists=[];
        
                  for( var i=0;i<this.multipleSelection.length;i++){
-                      this.multipLists.push(this.multipleSelection[i].code);//添加元数据列表id
+                      this.multipLists.push(this.multipleSelection[i].id);//添加元数据列表id
                   }
 
                   for( var i=0;i<this.multipLists.length;i++){
                       console.log("===="+this.multipLists[i]);//添加元数据列表id
                   }
 
+      this.$set(this.buttonMode, key, 1);
              
- 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         
        //  console.log(mm);
       },
         
        
-      getDetail(index,item)
+      getDetail(key,value)
       {
+        this.$set(this.showList, key, !this.showList[key]);
+        
         //alert(index);
-              console.log("item="+item+"index="+index)
-              let obj = this.loadlistsbybutton(item);
-              this.newProcedure.push(obj);
-              this.listname.push(item);
-              console.log("================");
-              console.log( this.newProcedure); 
-              document.getElementById(index).style.background="lightskyblue";
-              document.getElementById(index).style.color="black";
-              document.getElementById(index).setAttribute("disabled", true);   
+              // console.log("item="+item+"index="+index)
+             // let obj = this.loadlistsbybutton(item);
+            //  this.newProcedure.push(obj);
+            //  this.listname.push(item);
+              // console.log("================");
+              // console.log( this.newProcedure); 
+              // document.getElementById(index).style.background="lightskyblue";
+              // document.getElementById(index).style.color="black";
+              // document.getElementById(index).setAttribute("disabled", true);   
              
        /* if(index===0){
          
@@ -647,6 +631,46 @@ export default
         console.log(file.file.name+"+++")
          
         },
+        loadAllcharacteristics(){
+                         var url='http://127.0.0.1:8090/jstz/api/v1.0/characteristic?pageSize=100';
+                         this.$axios.get(url)
+                          .then(resp =>{
+                              if (resp && resp.data){
+                                var contents=resp.data.content;
+                                console.log(contents);
+                               // var buttons = {};
+                                //var characteristicsObject = {};
+                                //this.characterLists=[];
+                                for(var i=0;i<contents.length;i++){
+                                  
+                                    var charname=contents[i].indicator.module.charName;
+                                    var name=contents[i].indicator.module.name;
+                                    var characteristic = contents[i];
+                                    // this.characterListObject[charname] = name;
+                                    this.$set(this.characterListObject,charname,name)
+                                    var cList = this.characterListsObject[charname];
+                                    if (null == cList){
+                                      cList = [];
+                                    //  this.characterListsObject[charname] = cList;
+                                    this.$set(this.characterListsObject, charname, cList)
+                                    this.$set(this.showList, charname, false);
+                                    this.$set(this.buttonMode, charname, 0);
+                                    }
+                                    cList.push(characteristic);                           
+                                }                              
+                                 console.log("okokok");  
+                                 console.log(this.characterListObject);    
+                                 console.log(this.characterListsObject); 
+                              }else{
+                               this.$alert('服务器返回错误', '提示', {
+                             dangerouslyUseHTMLString: true
+                             });                             
+                           }
+                        
+                          })
+                          .catch(err=>{console.log("error is"+err)}
+                          )      
+                     },
                     /*加载所有元数据*/
                     loadAllProjects() {
                      
@@ -680,7 +704,7 @@ export default
                                   for(let j=0;j<categoryList.length;j++){
                                      
                                      let indicatorList= categoryList[j].indicatorList;
-                                      console.log(indicatorList);
+                                     // console.log(indicatorList);
                                        for(let l=0;l<indicatorList.length;l++){
                                          let characteristicsList=indicatorList[l].characteristicsList;
                                          for(let m=0;m<characteristicsList.length;m++){                                           
@@ -727,7 +751,7 @@ export default
                  this.isAble=true;
                
                   var arr=[];
-                  console.log(" this.multipLists.length:"+ this.multipLists.length);
+                //  console.log(" this.multipLists.length:"+ this.multipLists.length);
                 for (var i = 0; i < this.multipLists.length; i++) {
                   for (var j = i+1; j <  this.multipLists.length; j++) {
                    if(this.multipLists[i]===this.multipLists[j]){
@@ -748,7 +772,7 @@ export default
 
                 
                // var finalObj = JSON.stringify(this.taskInfo);//封装成json传输到后台
-                console.log("finalObj="+this.taskInfo);
+               // console.log("finalObj="+this.taskInfo);
                 this.$refs.upload1.submit();
                   this.$refs.upload2.submit();
                     this.$refs.upload.submit();
@@ -765,10 +789,10 @@ export default
                          'Content-Type': 'multipart/form-data;charset=UTF-8'
                     }
                 }).then(resp => { 
-                   console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
+                  // console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
                     if (resp && resp.data){
                     if ("success" == resp.data.result) {
-                    console.log("resp.data.result="+resp.data.result);
+                  //  console.log("resp.data.result="+resp.data.result);
                     
                     this.fullscreenLoading = true;
                     setTimeout(() => {
@@ -830,10 +854,10 @@ export default
                         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
                     }
                  }).then(resp => { 
-                   console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
+                 //  console.log("aaaaaaaa="+resp);                  //请求成功后的处理函数   
                  if (resp && resp.data){
                     if ("success" == resp.data.result) {
-                    console.log("resp.data.result="+resp.data.result);
+                    //console.log("resp.data.result="+resp.data.result);
                     this.$message.warning("验证成功");
                     
                    } else {

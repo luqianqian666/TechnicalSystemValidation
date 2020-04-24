@@ -2,7 +2,7 @@
 <div id="logo">
   <span>
     <img src="../assets/logobackground.png" width="100%" height="100%" align="left">
-    <h1 >技术体制验证软件</h1>
+    <h1 >技术体制验证综合管理软件</h1>
     </span>
   
     <span class="user" style="float: right">
@@ -22,7 +22,7 @@
         <el-link type="info">退出</el-link>
       </span>
       <span v-else class="username">
-        <span>未登录</span>
+        <span>已登录</span>
       </span>
     </span>
 </div> 

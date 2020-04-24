@@ -21,8 +21,8 @@
                                         {{scope.$index+1}} 
                                   </template>
                                 </el-table-column>
-                               <el-table-column label="编号"   prop="code"  min-width="200" align="center" v-if="show"></el-table-column>
-                               <el-table-column prop="describe" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
+                               <el-table-column label="编号"   prop="id"  min-width="200" align="center" v-if="show"></el-table-column>
+                               <el-table-column prop="desc" label="特征描述" min-width="550" align="center" :show-overflow-tooltip="true"></el-table-column>
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">
                                      <span style="font-size: medium;">
@@ -62,6 +62,9 @@
         characteristic:[],
       }
     }, 
+    mounted () {
+      console.log(this.tableData)
+    },
     
      created() {
        //初始化数据
@@ -74,6 +77,7 @@
           handleSelectionChange(val) {  
              
            this.multipleSelection=val;
+           console.log(val)
            this.$emit('transferChri',this.multipleSelection);
       
          // this.$emit('transferChri',this.multipleSelection);

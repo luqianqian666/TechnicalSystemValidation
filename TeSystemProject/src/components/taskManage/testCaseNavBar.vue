@@ -10,10 +10,10 @@
       router
       @select="handleSelect"
       >
-       <el-menu-item index="/standardManage" >
-          标准管理
+       <el-menu-item index="/standardsManageInfo" >
+          待测软件管理
       </el-menu-item>
-      <el-menu-item index="/taskBaseInfo"  >
+      <el-menu-item index="/"  >
           验证执行
       </el-menu-item>
       <el-menu-item index="/missionControlInfo" >
@@ -58,7 +58,7 @@ export default {
     {
 
     },
-     handleSelect(key, keyPath) {
+        handleSelect(key, keyPath) {
        
       
         console.log(key, keyPath);

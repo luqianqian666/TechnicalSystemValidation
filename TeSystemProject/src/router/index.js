@@ -7,6 +7,7 @@ import taskBaseInfo from '@/components/taskManage/verifyPerform/taskBaseInfo'
 import taskResultsManage from '@/components/taskManage/taskResult/taskResultsManage'
 import testCaseEdit from '@/components/taskManage/missionControl/testCaseEdit'
 import leftBar from '@/components/leftBar'
+import standardsManageInfo from '@/components/taskManage/standardsManage/standardsManageInfo'
 Vue.use(Router)
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -17,7 +18,9 @@ export default new Router({
   routes: [
      {
        path: '/',
-       redirect: 'taskBaseInfo',
+      //  redirect: 'taskBaseInfo',
+       name: 'taskBaseInfo',
+       component: taskBaseInfo
      },
     {
       path: '/missionControlInfo',
@@ -46,6 +49,12 @@ export default new Router({
         name: 'testCaseEdit',
         component: testCaseEdit
       },
+      
+      {
+        path: '/standardsManageInfo',
+        name: 'standardsManageInfo',
+        component: standardsManageInfo
+      },
    /* {
       path: '/',
       name: 'taskBaseInfo',
@@ -70,5 +79,5 @@ export default new Router({
   ]
 }*/
 ],
-//mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
+// mode:"history"    // mode 设置为history ，去掉地址栏上的 # 号
 })

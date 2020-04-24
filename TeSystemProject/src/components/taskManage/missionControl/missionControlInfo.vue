@@ -23,14 +23,14 @@
                                   <label>开始时间：
                                     <el-date-picker
                                       v-model="start_time" type="date" placeholder="选择开始日期"
-                                      format="yyyy年MM月dd日" value-format="yyyy-MM-dd"
+                                      format="yyyy年MM月dd日" value-format="yyyy-M-dd"
                                       size="mini">
                                     </el-date-picker>
                                   </label>
                                    <label>结束时间：
                                       <el-date-picker
                                       v-model="end_time" type="date" placeholder="选择结束日期"
-                                      format="yyyy年MM月dd日" value-format="yyyy-MM-dd"
+                                      format="yyyy年MM月dd日" value-format="yyyy-M-dd"
                                       size="mini">
                                       </el-date-picker>
                                     </label>
@@ -205,6 +205,7 @@ export default {
         const start_time=this.start_time;
         const end_time=this.end_time;
         const time_type=this.time_type
+        console.log(start_time);
         if (tasknameSearch||start_time||end_time||time_type) {
         
           // filter() 方法创建一个新的数组，

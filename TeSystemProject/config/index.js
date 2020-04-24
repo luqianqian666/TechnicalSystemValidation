@@ -10,7 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     // 开发环境把.去掉 打包部署环境留下.
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {
       '/api': {
           target: 'http://localhost:8089',
@@ -35,12 +35,12 @@ module.exports = {
      */
 
     // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
 
     // If you have problems debugging vue-files in devtools,
     // set this to false - it *may* help
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
-    cacheBusting: true,
+    cacheBusting: false,
 
     cssSourceMap: true
   },

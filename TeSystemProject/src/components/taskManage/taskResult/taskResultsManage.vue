@@ -59,16 +59,17 @@
                                 </el-table-column>
                                <el-table-column label="编号"   prop="code"  min-width="100" align="center" v-if="show"></el-table-column>
                                <el-table-column prop="describe" label="任务名称" min-width="200" align="center" :show-overflow-tooltip="true"></el-table-column>
-                                <el-table-column prop="status" label="验证结果" min-width="100" align="center" :show-overflow-tooltip="true"></el-table-column>
+                                <el-table-column prop="status" label="验证结果" min-width="100" align="center" :show-overflow-tooltip="true"> <el-progress :text-inside="true" :stroke-width="20" :percentage="70"></el-progress></el-table-column>
+                             
                                <el-table-column label="操作" min-width="100" align="center" >
                                 <template slot-scope="scope">                               
                                      <span style="font-size: medium;">
+                                         <el-link icon="el-icon-edit"  style="font-size: 12px" @click="viewMore(scope.row.code)">详细</el-link>&nbsp;
                                        <el-link icon="el-icon-download"  style="font-size: 12px" @click="download(scope.row.code)">导出</el-link>&nbsp;                                    
                                     </span>
                                  </template>
                               </el-table-column>
                              </el-table>
-                              
                             </div>
                             </div>
                             </el-col>
@@ -121,10 +122,8 @@
                         
                     </div>
                 </el-col>
-            </el-row>
-          
+            </el-row>         
         </div>
-
                     <el-drawer  style="max-width: 1024px;text-align:center;margin:0 auto"
                             title="验证日志管理"
                             :visible.sync="table"
@@ -313,9 +312,15 @@ import echartsLiquidfill from 'echarts-liquidfill'
             })*/
         },
 
-      viewMore(){},
-         getTaskNameList(){
+      viewMore(){
+           this.$alert('功能暂未开放', '提示', {
+                             dangerouslyUseHTMLString: true
+                             });     
          
+      },
+         getTaskNameList(){
+             
+                              
        },
       getLineStyle(num, str) {
             var total = this.unstart + this.pass + this.fail + this.block + this.jump;
@@ -360,7 +365,7 @@ import echartsLiquidfill from 'echarts-liquidfill'
                      this.$alert('服务器返回错误', '提示', {
                      dangerouslyUseHTMLString: true
                       });
-                         this.isAble=false;
+                        
                      }
   
                               
